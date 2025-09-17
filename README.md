@@ -61,18 +61,17 @@ lib/
  ├─ utils/
  │  └─ gradient_scaffold.dart
  └─ main.dart
- 
+ ```
+---
 🚀 Getting Started
 Prerequisites
 
-Flutter SDK (latest stable version)
-
-Dart SDK
-
-IDE: VSCode / Android Studio
+* Flutter SDK (latest stable version)
+* Dart SDK
+* IDE: VSCode / Android Studio
 
 Installation
-
+```plaintext
 Clone the repository:
 
 git clone <your-repo-link>
@@ -87,18 +86,18 @@ flutter pub get
 Run the project:
 
 flutter run
-
+```
 📦 Dependencies
 
 Add the following dependencies in pubspec.yaml:
-
+```plaintext
 dependencies:
   flutter:
     sdk: flutter
   get: ^4.6.5
   google_fonts: ^3.0.1
   sizer: ^2.0.15
-
+```
 📝 License & Attribution
 
 This UI is a reproduction inspired by the Figma design linked above.
