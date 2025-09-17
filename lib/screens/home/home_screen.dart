@@ -1,0 +1,266 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconly/iconly.dart';
+import '../../constant/app_colors.dart';
+import '../../models/transaction_model.dart';
+import '../../modules/home/home_controller.dart';
+import '../../utils/gradient_scaffold.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
+
+    return GradientScaffold(
+      body: Obx(() {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 18,
+                      backgroundImage: const AssetImage('assets/profile.jpg'),
+                      backgroundColor: Colors.grey.shade800,
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Welcome back,',
+                          style: GoogleFonts.poppins(
+                            color: AppColors.textSecondary,
+                            fontSize: 11,
+                          ),
+                        ),
+                        Text(
+                          'Sandy Chungus',
+                          style: GoogleFonts.poppins(
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(IconlyLight.notification),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.more_vert),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            // Animated Balance Card
+            Center(
+              child: Container(
+                width: 280,
+                height: 280,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/frame.png")),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 6),
+                      // Animated balance counter
+                      TweenAnimationBuilder<double>(
+                        tween: Tween<double>(
+                          begin: 0,
+                          end: controller.balance.value.toDouble(),
+                        ),
+                        duration: const Duration(milliseconds: 1000),
+                        builder: (context, val, _) {
+                          return Text(
+                            '\$${val.toStringAsFixed(2)}',
+                            style: GoogleFonts.poppins(
+                              color: AppColors.textPrimary,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w800,
+                              height: 1.0,
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Available Balance',
+                        style: GoogleFonts.poppins(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Transactions',
+                    style: GoogleFonts.poppins(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(IconlyLight.filter_2, size: 16),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 4),
+
+            // Transactions List with animation
+            Expanded(
+              child: controller.isLoading.value
+                  ? ListView.builder(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      itemCount: 5,
+                      itemBuilder: (_, __) => _shimmerTile(),
+                    )
+                  : ListView.separated(
+                      padding: const EdgeInsets.only(top: 12, bottom: 20),
+                      itemCount: controller.transactions.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                      itemBuilder: (_, i) {
+                        final tx = controller.transactions[i];
+                        return TweenAnimationBuilder<double>(
+                          duration: Duration(milliseconds: 400 + (i * 100)),
+                          curve: Curves.easeOut,
+                          tween: Tween<double>(begin: 0, end: 1),
+                          builder: (context, value, child) {
+                            return Opacity(
+                              opacity: value,
+                              child: Transform.translate(
+                                offset: Offset(0, 30 * (1 - value)),
+                                child: child,
+                              ),
+                            );
+                          },
+                          child: _transactionCard(tx, context),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        );
+      }),
+    );
+  }
+
+  Widget _shimmerTile() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      height: 72,
+      decoration: BoxDecoration(
+        color: Colors.white12,
+        borderRadius: BorderRadius.circular(12),
+      ),
+    );
+  }
+
+  Widget _transactionCard(TransactionModel tx, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.86,
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+            decoration: BoxDecoration(
+              color: AppColors.cardBg.withOpacity(0.45),
+              borderRadius: BorderRadius.circular(18),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.1),
+                  Colors.white.withOpacity(0.1),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.grey.shade800,
+                  backgroundImage: (tx.image.isNotEmpty)
+                      ? AssetImage(tx.image)
+                      : null,
+                  child: (tx.image.isEmpty)
+                      ? Text(
+                          tx.title[0].toUpperCase(),
+                          style: const TextStyle(color: Colors.white70),
+                        )
+                      : null,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tx.title,
+                        style: GoogleFonts.poppins(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        tx.date,
+                        style: GoogleFonts.poppins(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  (tx.amount < 0 ? '-' : '+') +
+                      '\$${tx.amount.abs().toStringAsFixed(2)}',
+                  style: GoogleFonts.poppins(
+                    color: tx.amount < 0
+                        ? AppColors.textSecondary
+                        : AppColors.success,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
