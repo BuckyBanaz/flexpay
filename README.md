@@ -74,8 +74,8 @@ Installation
 ```plaintext
 Clone the repository:
 
-git clone <your-repo-link>
-cd flexpay_ui_clone
+git clone https://github.com/BuckyBanaz/flex.git
+cd flex
 
 
 Install dependencies:
