@@ -1,53 +1,39 @@
-// card_customization_screen.dart
-import 'package:flex/constant/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../modules/wallet/card_customization_controller.dart';
-import '../../utils/gradient_scaffold.dart';
+import 'package:get/get.dart';
 
 class CardCustomizationScreen extends StatelessWidget {
-  CardCustomizationScreen({super.key});
-
-  final CardCustomizationController controller = Get.put(
-    CardCustomizationController(),
-  );
+  const CardCustomizationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top bar
+              // 🔹 Top bar
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.maybePop(context),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  const Spacer(),
-                  // Customisable badge
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       children: [
-                        const Icon(
-                          Icons.auto_awesome,
-                          color: Colors.yellow,
-                          size: 16,
-                        ),
+                        const Icon(Icons.auto_awesome,
+                            color: Colors.yellow, size: 16),
                         const SizedBox(width: 6),
                         Text(
                           "Customisable",
@@ -59,43 +45,28 @@ class CardCustomizationScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const Icon(Icons.more_vert, color: Colors.white),
                 ],
               ),
 
-              const SizedBox(height: 18),
+              const SizedBox(height: 28),
 
-              // Card preview
-              Obx(() {
-                final style = controller.styles[controller.selectedStyle.value];
-                final colorIdx = controller
-                    .selectedColorForStyle[controller.selectedStyle.value];
-                final gradientColors = (colorIdx >= 0)
-                    ? style['colors'][colorIdx].cast<Color>()
-                    : style['colors'][0].cast<Color>();
-
-                return Container(
-                  width: double.infinity,
+              // 🔹 Card Preview
+              Center(
+                child: Container(
                   height: 180,
-                  margin: const EdgeInsets.symmetric(horizontal: 6),
-                  padding: const EdgeInsets.all(16),
+                  width: 280,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: gradientColors,
+                    color: const Color(0xFF2A2F4F),
+                    borderRadius: BorderRadius.circular(14),
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF3E465D), Color(0xFF1D2136)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(14),
-                    boxShadow: [
-                      BoxShadow(
-                        color: gradientColors.last.withOpacity(0.28),
-                        blurRadius: 22,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
                   ),
                   child: Stack(
                     children: [
-                      // subtle rounded corner decoration (like image)
                       Positioned(
                         right: -30,
                         top: -30,
@@ -103,273 +74,177 @@ class CardCustomizationScreen extends StatelessWidget {
                           width: 120,
                           height: 120,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.03),
+                            color: Colors.white.withOpacity(0.05),
                             borderRadius: BorderRadius.circular(80),
                           ),
                         ),
                       ),
-
-                      // Card content
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Flex Pay",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white.withOpacity(0.95),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                            ),
-                          ),
-                          const SizedBox(height: 18),
-                          Text(
-                            "CARD HOLDER NAME".toUpperCase(),
-                            style: GoogleFonts.poppins(
-                              color: Colors.white.withOpacity(0.75),
-                              fontSize: 11,
-                              letterSpacing: 1.2,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "VISA",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                            ),
-                          ),
-                          // small chip
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 6),
-                              padding: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.9),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Icon(
-                                Icons.grid_view,
-                                size: 18,
-                                color: AppColors.cardBg,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Flex Pay",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                            const Spacer(),
+                            Text("SANDY CHUNGUS",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                )),
+                            const SizedBox(height: 6),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 40,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                                Image.asset(
+                                  "assets/visa.png", // put VISA logo in assets
+                                  height: 28,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                );
-              }),
-
-              const SizedBox(height: 14),
-
-              // Title + subtitle
-              Obx(() {
-                final style = controller.styles[controller.selectedStyle.value];
-                return Column(
-                  children: [
-                    Text(
-                      style['title'],
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Text(
-                        style['subtitle'],
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          color: Colors.white.withOpacity(0.75),
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }),
-
-              const SizedBox(height: 18),
-
-              // Options list (cards)
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(controller.styles.length, (i) {
-                      final s = controller.styles[i];
-                      final locked = s['locked'] as bool;
-                      final selected = controller.selectedStyle.value == i;
-                      return GestureDetector(
-                        onTap: () => controller.selectStyle(i),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.03),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: selected
-                                  ? Colors.white.withOpacity(0.12)
-                                  : Colors.transparent,
-                              width: 1,
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // header row
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      s['title'],
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                  if (locked)
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.06),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: const Icon(
-                                        CupertinoIcons.lock_fill,
-                                        color: Colors.white70,
-                                        size: 16,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                s['subtitle'],
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white.withOpacity(0.6),
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-
-                              // color swatches
-                              Obx(() {
-                                return Row(
-                                  children: List.generate(
-                                    (s['colors'] as List).length,
-                                    (ci) {
-                                      final swatchGradient =
-                                          (s['colors'][ci] as List)
-                                              .cast<Color>();
-                                      final isSelected =
-                                          controller.selectedColorForStyle[i] ==
-                                          ci;
-                                      return GestureDetector(
-                                        onTap: () =>
-                                            controller.selectColor(i, ci),
-                                        child: Container(
-                                          margin: const EdgeInsets.only(
-                                            right: 12,
-                                          ),
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              Container(
-                                                width: 36,
-                                                height: 36,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: swatchGradient,
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(18),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: swatchGradient.last
-                                                          .withOpacity(0.22),
-                                                      blurRadius: 8,
-                                                      offset: const Offset(
-                                                        0,
-                                                        4,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              if (isSelected)
-                                                Container(
-                                                  width: 36,
-                                                  height: 36,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          18,
-                                                        ),
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 2,
-                                                    ),
-                                                  ),
-                                                  child: const Icon(
-                                                    Icons.check,
-                                                    size: 18,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
                 ),
               ),
 
-              // Get Card button
+              const SizedBox(height: 30),
+
+              // 🔹 Material options
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.cyan, width: 1.4),
+                      ),
+                      child: Center(
+                        child: Text("Premium Plastic",
+                            style: GoogleFonts.poppins(
+                                color: Colors.white, fontSize: 13)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white.withOpacity(0.08),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Solid Steel Metal",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white54, fontSize: 13)),
+                          const SizedBox(width: 6),
+                          const Icon(CupertinoIcons.lock_fill,
+                              size: 14, color: Colors.white54),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              // 🔹 Title + Subtitle
+              Center(
+                child: Column(
+                  children: [
+                    Text("Premium Plastic • Space Grey",
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15)),
+                    const SizedBox(height: 8),
+                    Text(
+                      "A striking shimmer effect makes our beautiful Premium card feel as good as it looks.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          color: Colors.white70, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 26),
+
+              // 🔹 Color swatches
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildColorCircle(Colors.cyan, true),
+                  buildColorCircle(Colors.red, false),
+                  buildColorCircle(Colors.purple, false),
+                ],
+              ),
+
+              const Spacer(),
+
+              // 🔹 CTA Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => controller.getCard(),
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.cyan,
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 4,
+                        borderRadius: BorderRadius.circular(12)),
                   ),
-                  child: Text(
-                    "Get Card",
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text("Get Your Card",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600, fontSize: 15)),
                 ),
               ),
-              const SizedBox(height: 10),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // 🔹 Color circle builder
+  Widget buildColorCircle(Color color, bool selected) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+            ),
+          ),
+          if (selected)
+            const Icon(Icons.check, color: Colors.white, size: 18),
+        ],
       ),
     );
   }

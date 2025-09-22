@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flex/constant/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,164 +16,220 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
 
-    return GradientScaffold(
+    return Scaffold(
       body: Obx(() {
         return Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 18,
-                      backgroundImage: const AssetImage('assets/profile.jpg'),
-                      backgroundColor: Colors.grey.shade800,
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Welcome back,',
-                          style: GoogleFonts.poppins(
-                            color: AppColors.textSecondary,
-                            fontSize: 11,
-                          ),
-                        ),
-                        Text(
-                          'Sandy Chungus',
-                          style: GoogleFonts.poppins(
-                            color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(IconlyLight.notification),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.more_vert),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 6),
-            // Animated Balance Card
-            Center(
-              child: Container(
-                width: 280,
-                height: 280,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/frame.png")),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(height: 6),
-                      // Animated balance counter
-                      TweenAnimationBuilder<double>(
-                        tween: Tween<double>(
-                          begin: 0,
-                          end: controller.balance.value.toDouble(),
-                        ),
-                        duration: const Duration(milliseconds: 1000),
-                        builder: (context, val, _) {
-                          return Text(
-                            '\$${val.toStringAsFixed(2)}',
-                            style: GoogleFonts.poppins(
-                              color: AppColors.textPrimary,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w800,
-                              height: 1.0,
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Available Balance',
-                        style: GoogleFonts.poppins(
-                          color: AppColors.textSecondary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
+            // Top profile row stays same
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Transactions',
-                    style: GoogleFonts.poppins(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundImage: const AssetImage('assets/profile.jpg'),
+                        backgroundColor: Colors.grey.shade800,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome back,',
+                            style: GoogleFonts.poppins(
+                              color: AppColors.textSecondary,
+                              fontSize: 11,
+                            ),
+                          ),
+                          Text(
+                            'Sandy Chungus',
+                            style: GoogleFonts.poppins(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(IconlyLight.filter_2, size: 16),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(IconlyLight.notification),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.more_vert),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 4),
 
-            // Transactions List with animation
+            // Stack area for balance + transactions
             Expanded(
-              child: controller.isLoading.value
-                  ? ListView.builder(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      itemCount: 5,
-                      itemBuilder: (_, __) => _shimmerTile(),
-                    )
-                  : ListView.separated(
-                      padding: const EdgeInsets.only(top: 12, bottom: 20),
-                      itemCount: controller.transactions.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 10),
-                      itemBuilder: (_, i) {
-                        final tx = controller.transactions[i];
-                        return TweenAnimationBuilder<double>(
-                          duration: Duration(milliseconds: 400 + (i * 100)),
-                          curve: Curves.easeOut,
-                          tween: Tween<double>(begin: 0, end: 1),
-                          builder: (context, value, child) {
-                            return Opacity(
-                              opacity: value,
-                              child: Transform.translate(
-                                offset: Offset(0, 30 * (1 - value)),
-                                child: child,
-                              ),
-                            );
-                          },
-                          child: _transactionCard(tx, context),
-                        );
-                      },
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // background (fills bottom area)
+                  Positioned.fill(
+                    top: 200, // starts below the balance card area
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AppAssets.base),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      // transactions content will be inside a Column below, but we will position header inside below
                     ),
+                  ),
+
+                  // Balance card positioned near top
+                  Positioned(
+                    top: 10,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(AppAssets.balanceFrame),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TweenAnimationBuilder<double>(
+                                tween: Tween<double>(
+                                  begin: 0,
+                                  end: controller.balance.value.toDouble(),
+                                ),
+                                duration: const Duration(milliseconds: 1000),
+                                builder: (context, val, _) {
+                                  return Text(
+                                    '\$${val.toStringAsFixed(2)}',
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.textPrimary,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                'Available Balance',
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.textSecondary,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Transactions panel that visually starts under the balance card
+                  Positioned(
+                    top: 260, // tune this to overlap exactly how you want
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Column(
+                      children: [
+                        // small handle or space to show overlap
+                        const SizedBox(height: 30),
+
+                        // header + list inside a rounded card to mimic screenshot
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'My transaction',
+                                        style: GoogleFonts.poppins(
+                                          color: AppColors.textPrimary,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(IconlyLight.filter_2, size: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: controller.isLoading.value
+                                      ? ListView.builder(
+                                    padding: const EdgeInsets.symmetric(vertical: 12),
+                                    itemCount: 5,
+                                    itemBuilder: (_, __) => _shimmerTile(),
+                                  )
+                                      : ListView.separated(
+                                    padding: const EdgeInsets.only(top: 12, bottom: 100),
+                                    itemCount: controller.transactions.length,
+                                    separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                    itemBuilder: (_, i) {
+                                      final tx = controller.transactions[i];
+                                      return TweenAnimationBuilder<double>(
+                                        duration: Duration(milliseconds: 400 + (i * 100)),
+                                        curve: Curves.easeOut,
+                                        tween: Tween<double>(begin: 0, end: 1),
+                                        builder: (context, value, child) {
+                                          return Opacity(
+                                            opacity: value,
+                                            child: Transform.translate(
+                                              offset: Offset(0, 30 * (1 - value)),
+                                              child: child,
+                                            ),
+                                          );
+                                        },
+                                        child: _transactionCard(tx, context),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         );
       }),
     );
+
+
   }
 
   Widget _shimmerTile() {
@@ -199,9 +256,10 @@ class HomeScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.cardBg.withOpacity(0.45),
               borderRadius: BorderRadius.circular(18),
+              border: BoxBorder.all(color: AppColors.divider),
               gradient: LinearGradient(
                 colors: [
-                  Colors.white.withOpacity(0.1),
+                  Colors.white.withOpacity(0.3),
                   Colors.white.withOpacity(0.1),
                 ],
                 begin: Alignment.topLeft,

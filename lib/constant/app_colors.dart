@@ -7,15 +7,16 @@ class AppColors {
   static const Color gradientEnd   = Color(0xFF111827); // purple glow bottom
 
   // Center glow color (a bit brighter than gradientMid)
+  static const Color scaffold  = Color(0xFF19173D);
   static const Color centerPurple  = Color(0xFF5B1FB0);
 
   // Neon / accent
-  static const Color primary       = Color(0xFF00E6D6); // neon cyan (main accent)
+  static const Color primary       = Color(0xFF06B6D4); // neon cyan (main accent)
   static const Color primaryMuted  = Color(0xFF6A4DFF); // soft neon violet
-
+  static const Color accent = Color(0xFF6B4BFF);
   // Text colors
   static const Color textPrimary   = Colors.white;
-  static const Color textSecondary = Color(0xFFB8AEE0);
+  static const Color textSecondary = Color(0xFF9CA3AF);
   static const Color textFaded     = Color(0xFF7A6D9E);
 
   // Status

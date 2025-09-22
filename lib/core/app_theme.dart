@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../constant/app_colors.dart';
 
 class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: Colors.transparent,
+    scaffoldBackgroundColor: AppColors.scaffold,
     primaryColor: AppColors.primary,
-    textTheme: GoogleFonts.poppinsTextTheme().apply(
+    fontFamily: 'Arial', // 👈 Arial set here
+    textTheme: const TextTheme().apply(
       bodyColor: AppColors.textPrimary,
       displayColor: AppColors.textPrimary,
     ),
@@ -17,7 +17,7 @@ class AppTheme {
       iconTheme: IconThemeData(color: AppColors.textPrimary),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.black.withOpacity(0.22),
+      backgroundColor: AppColors.scaffold,
       selectedItemColor: AppColors.primary,
       unselectedItemColor: AppColors.textSecondary,
     ),

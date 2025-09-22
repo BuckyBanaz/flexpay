@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 import '../home/home_screen.dart';
+import '../profile/profile_screen.dart';
+import '../stats/stats_screen.dart';
 import '../wallet/wallet_screen.dart';
 
 class MainNavScreen extends StatefulWidget {
@@ -22,8 +24,8 @@ class _MainNavScreenState extends State<MainNavScreen>
   final List<Widget> _pages = [
     const HomeScreen(),
     WalletScreen(),
-    const ProfileScreen(),
-    const AnalyticsScreen(),
+     ProfileScreen(),
+    StatsScreen(),
   ];
 
   void _onTap(int index) {
@@ -35,17 +37,7 @@ class _MainNavScreenState extends State<MainNavScreen>
     return Scaffold(
       // Gradient background similar to your AppColors
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.gradientStart,
-              AppColors.gradientMid,
-              AppColors.gradientEnd,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+
         child: SafeArea(
           bottom: false,
           child: Stack(
@@ -170,13 +162,7 @@ class _NavItem extends StatelessWidget {
 
 /// ------------------- SAMPLE SCREENS -------------------
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return GradientScaffold(body: Center(child: Text("Profile")));
-  }
-}
+
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({super.key});
