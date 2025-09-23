@@ -1,3 +1,4 @@
+// lib/screens/pay/widgets/qr_display.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -11,12 +12,11 @@ class QRDisplay extends StatelessWidget {
     final PayController c = Get.find();
     return Column(
       children: [
-        // QR card with glow & rounded white frame like the screenshot
+        // QR card with glow & rounded white frame
         Container(
-          padding: const EdgeInsets.all(18),
+          padding: const EdgeInsetsDirectional.all(18),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-
             color: Colors.white.withOpacity(0.02),
           ),
           child: Center(
@@ -37,7 +37,7 @@ class QRDisplay extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        const Text('Requesting', style: TextStyle(color: Colors.white70)),
+        Text('requesting'.tr, style: const TextStyle(color: Colors.white70)),
         const SizedBox(height: 6),
         Obx(() => Text('\$ ${c.amount.value.toStringAsFixed(2)}',
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700))),
@@ -51,7 +51,7 @@ class QRDisplay extends StatelessWidget {
               backgroundColor: Colors.white.withOpacity(0.02),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
-            child: const Text('Share Code', style: TextStyle(color: Colors.white70)),
+            child: Text('share_code'.tr, style: const TextStyle(color: Colors.white70)),
           ),
         ),
       ],

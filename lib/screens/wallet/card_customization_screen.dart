@@ -1,3 +1,4 @@
+// lib/screens/card_customization/card_customization_screen.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,7 @@ class CardCustomizationScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,23 +25,18 @@ class CardCustomizationScreen extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                   ),
                   Container(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                    padding: const EdgeInsetsDirectional.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.auto_awesome,
-                            color: Colors.yellow, size: 16),
+                        const Icon(Icons.auto_awesome, color: Colors.yellow, size: 16),
                         const SizedBox(width: 6),
                         Text(
-                          "Customisable",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
+                          'customisable'.tr,
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
                         ),
                       ],
                     ),
@@ -67,8 +63,8 @@ class CardCustomizationScreen extends StatelessWidget {
                   ),
                   child: Stack(
                     children: [
-                      Positioned(
-                        right: -30,
+                      PositionedDirectional(
+                        end: -30,
                         top: -30,
                         child: Container(
                           width: 120,
@@ -80,18 +76,18 @@ class CardCustomizationScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(18),
+                        padding: const EdgeInsetsDirectional.all(18),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Flex Pay",
+                            Text('brand_name'.tr,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 )),
                             const Spacer(),
-                            Text("SANDY CHUNGUS",
+                            Text('card_holder_name'.tr,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
@@ -129,24 +125,20 @@ class CardCustomizationScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 10),
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 14, vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.cyan, width: 1.4),
                       ),
                       child: Center(
-                        child: Text("Premium Plastic",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text('premium_plastic'.tr, style: GoogleFonts.poppins(color: Colors.white, fontSize: 13)),
                       ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 10),
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 14, vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white.withOpacity(0.08),
@@ -154,12 +146,9 @@ class CardCustomizationScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Solid Steel Metal",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white54, fontSize: 13)),
+                          Text('solid_steel_metal'.tr, style: GoogleFonts.poppins(color: Colors.white54, fontSize: 13)),
                           const SizedBox(width: 6),
-                          const Icon(CupertinoIcons.lock_fill,
-                              size: 14, color: Colors.white54),
+                          const Icon(CupertinoIcons.lock_fill, size: 14, color: Colors.white54),
                         ],
                       ),
                     ),
@@ -173,17 +162,13 @@ class CardCustomizationScreen extends StatelessWidget {
               Center(
                 child: Column(
                   children: [
-                    Text("Premium Plastic • Space Grey",
-                        style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15)),
+                    Text('material_color_label'.trArgs(['Premium Plastic', 'Space Grey']),
+                        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15)),
                     const SizedBox(height: 8),
                     Text(
-                      "A striking shimmer effect makes our beautiful Premium card feel as good as it looks.",
+                      'material_description'.tr,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                          color: Colors.white70, fontSize: 12),
+                      style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12),
                     ),
                   ],
                 ),
@@ -211,13 +196,10 @@ class CardCustomizationScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.cyan,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12)),
+                    padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
-                  child: Text("Get Your Card",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: 15)),
+                  child: Text('get_your_card'.tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 15)),
                 ),
               ),
             ],
@@ -230,7 +212,7 @@ class CardCustomizationScreen extends StatelessWidget {
   // 🔹 Color circle builder
   Widget buildColorCircle(Color color, bool selected) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsetsDirectional.symmetric(horizontal: 10),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -242,8 +224,7 @@ class CardCustomizationScreen extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          if (selected)
-            const Icon(Icons.check, color: Colors.white, size: 18),
+          if (selected) const Icon(Icons.check, color: Colors.white, size: 18),
         ],
       ),
     );

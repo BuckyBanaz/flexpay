@@ -1,3 +1,4 @@
+// lib/screens/home/home_screen.dart
 import 'dart:ui';
 import 'package:flex/constant/app_assets.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,9 @@ class HomeScreen extends StatelessWidget {
       body: Obx(() {
         return Column(
           children: [
-            // Top profile row stays same
+            // Top profile row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 18.0, vertical: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -38,13 +39,15 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Welcome back,',
+                            'welcome'.tr,
                             style: GoogleFonts.poppins(
                               color: AppColors.textSecondary,
                               fontSize: 11,
                             ),
+                            textAlign: TextAlign.start,
                           ),
                           Text(
+                            // If you have user's name in controller, replace with controller.userName
                             'Sandy Chungus',
                             style: GoogleFonts.poppins(
                               color: AppColors.textPrimary,
@@ -87,7 +90,6 @@ class HomeScreen extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      // transactions content will be inside a Column below, but we will position header inside below
                     ),
                   ),
 
@@ -129,12 +131,13 @@ class HomeScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                'Available Balance',
+                                'available_balance'.tr,
                                 style: GoogleFonts.poppins(
                                   color: AppColors.textSecondary,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),
+                                textAlign: TextAlign.start,
                               ),
                             ],
                           ),
@@ -157,24 +160,25 @@ class HomeScreen extends StatelessWidget {
                         // header + list inside a rounded card to mimic screenshot
                         Expanded(
                           child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            decoration: BoxDecoration(
+                            margin: const EdgeInsetsDirectional.symmetric(horizontal: 8),
+                            decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12),
+                                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 18.0, vertical: 12),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'My transaction',
+                                        'my_transactions'.tr,
                                         style: GoogleFonts.poppins(
                                           color: AppColors.textPrimary,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                         ),
+                                        textAlign: TextAlign.start,
                                       ),
                                       IconButton(
                                         onPressed: () {},
@@ -186,12 +190,12 @@ class HomeScreen extends StatelessWidget {
                                 Expanded(
                                   child: controller.isLoading.value
                                       ? ListView.builder(
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
+                                    padding: const EdgeInsetsDirectional.only(top: 12),
                                     itemCount: 5,
                                     itemBuilder: (_, __) => _shimmerTile(),
                                   )
                                       : ListView.separated(
-                                    padding: const EdgeInsets.only(top: 12, bottom: 100),
+                                    padding: const EdgeInsetsDirectional.only(top: 12, bottom: 100),
                                     itemCount: controller.transactions.length,
                                     separatorBuilder: (_, __) => const SizedBox(height: 10),
                                     itemBuilder: (_, i) {
@@ -228,13 +232,11 @@ class HomeScreen extends StatelessWidget {
         );
       }),
     );
-
-
   }
 
   Widget _shimmerTile() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
       height: 72,
       decoration: BoxDecoration(
         color: Colors.white12,
@@ -245,18 +247,18 @@ class HomeScreen extends StatelessWidget {
 
   Widget _transactionCard(TransactionModel tx, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(18),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.86,
-            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 22, vertical: 18),
             decoration: BoxDecoration(
               color: AppColors.cardBg.withOpacity(0.45),
               borderRadius: BorderRadius.circular(18),
-              border: BoxBorder.all(color: AppColors.divider),
+              border: Border.all(color: AppColors.divider),
               gradient: LinearGradient(
                 colors: [
                   Colors.white.withOpacity(0.3),
@@ -271,14 +273,12 @@ class HomeScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 20,
                   backgroundColor: Colors.grey.shade800,
-                  backgroundImage: (tx.image.isNotEmpty)
-                      ? AssetImage(tx.image)
-                      : null,
+                  backgroundImage: (tx.image.isNotEmpty) ? AssetImage(tx.image) : null,
                   child: (tx.image.isEmpty)
                       ? Text(
-                          tx.title[0].toUpperCase(),
-                          style: const TextStyle(color: Colors.white70),
-                        )
+                    tx.title[0].toUpperCase(),
+                    style: const TextStyle(color: Colors.white70),
+                  )
                       : null,
                 ),
                 const SizedBox(width: 12),
@@ -292,6 +292,7 @@ class HomeScreen extends StatelessWidget {
                           color: AppColors.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
+                        textAlign: TextAlign.start,
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -300,19 +301,18 @@ class HomeScreen extends StatelessWidget {
                           color: AppColors.textSecondary,
                           fontSize: 12,
                         ),
+                        textAlign: TextAlign.start,
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  (tx.amount < 0 ? '-' : '+') +
-                      '\$${tx.amount.abs().toStringAsFixed(2)}',
+                  (tx.amount < 0 ? '-' : '+') + '\$${tx.amount.abs().toStringAsFixed(2)}',
                   style: GoogleFonts.poppins(
-                    color: tx.amount < 0
-                        ? AppColors.textSecondary
-                        : AppColors.success,
+                    color: tx.amount < 0 ? AppColors.textSecondary : AppColors.success,
                   ),
+                  textAlign: TextAlign.end,
                 ),
               ],
             ),

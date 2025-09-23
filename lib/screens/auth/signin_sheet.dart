@@ -1,3 +1,4 @@
+// lib/screens/auth/signin_sheet.dart
 import 'dart:ui';
 import 'package:flex/constant/app_colors.dart';
 import 'package:flex/screens/auth/signup_sheet.dart';
@@ -16,7 +17,6 @@ class SignInSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController c = Get.put(AuthController());
-    final radius = BorderRadius.circular(16.0);
 
     return DraggableScrollableSheet(
       initialChildSize: 0.82,
@@ -25,7 +25,7 @@ class SignInSheet extends StatelessWidget {
       expand: false,
       builder: (_, controllerScroll) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 18, vertical: 18),
           decoration: BoxDecoration(
             color: const Color(0xFF151229),
             borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
@@ -40,99 +40,111 @@ class SignInSheet extends StatelessWidget {
                   child: Container(
                     width: 48,
                     height: 4,
-                    margin: const EdgeInsets.only(bottom: 12),
+                    margin: const EdgeInsetsDirectional.only(bottom: 12),
                     decoration: BoxDecoration(color: Colors.white12, borderRadius: BorderRadius.circular(20)),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Welcome Back', style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600)),
+                    Text('welcome_back'.tr,
+                        style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.start),
                     GestureDetector(onTap: () => Get.back(), child: const Icon(Icons.close)),
                   ],
                 ),
                 const SizedBox(height: 12),
-                Text('Sign in to your account', style: TextStyle(color: Colors.white70)),
+                Text('sign_in_to_account'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 18),
 
                 // Email
-                Text('Email', style: TextStyle(color: Colors.white70)),
+                Text('email'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
                 GlassTextField(
                   controller: c.emailCtrl,
-                  hint: 'Enter your email',
+                  hint: 'enter_email'.tr,
                   prefix: Icons.email_outlined,
                 ),
                 const SizedBox(height: 12),
 
                 // Password
-                Text('Password', style: TextStyle(color: Colors.white70)),
+                Text('password'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
-                Obx(() => GlassTextField(
-                  controller: c.passCtrl,
-                  hint: 'Enter your password',
-                  prefix: Icons.lock_outline,
-                  obscure: !c.passwordVisible.value,
-                  suffix: IconButton(
-                    icon: Icon(c.passwordVisible.value ? Icons.visibility_off : Icons.visibility, color: Colors.white54),
-                    onPressed: () => c.passwordVisible.toggle(),
+                Obx(
+                      () => GlassTextField(
+                    controller: c.passCtrl,
+                    hint: 'enter_password'.tr,
+                    prefix: Icons.lock_outline,
+                    obscure: !c.passwordVisible.value,
+                    suffix: IconButton(
+                      icon: Icon(c.passwordVisible.value ? Icons.visibility_off : Icons.visibility, color: Colors.white54),
+                      onPressed: () => c.passwordVisible.toggle(),
+                    ),
                   ),
-                )),
+                ),
                 const SizedBox(height: 8),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Obx(() => Row(
-                      children: [
-                        Checkbox(value: c.rememberMe.value, onChanged: (v) => c.rememberMe.value = v ?? false),
-                        const Text('Remember me', style: TextStyle(color: Colors.white70))
-                      ],
-                    )),
-                    TextButton(onPressed: () {/* forgot */}, child: const Text('Forgot Password?', style: TextStyle(color: AppColors.primary))),
+                    Obx(
+                          () => Row(
+                        children: [
+                          Checkbox(
+                            value: c.rememberMe.value,
+                            onChanged: (v) => c.rememberMe.value = v ?? false,
+                            activeColor: AppColors.primary,
+                          ),
+                          Text('remember_me'.tr, style: TextStyle(color: Colors.white70))
+                        ],
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // TODO: Implement forgot password flow
+                      },
+                      child: Text('forgot_password'.tr, style: const TextStyle(color: AppColors.primary)),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 18),
 
                 // Sign In Button
-                Obx(() => SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: ElevatedButton(
-                    onPressed: c.loading.value ? null : () => c.signIn(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF13E0E9),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    child: c.loading.value
-                        ? const CircularProgressIndicator(color: AppColors.textPrimary)
-                        : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Sign In', style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontSize: 16.sp,
-                    ),
-                    ),
-                        const SizedBox(width: 8),
-                        Icon(Icons.arrow_forward, color: AppColors.textPrimary),
-                      ],
+                Obx(
+                      () => SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: c.loading.value ? null : () => c.signIn(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF13E0E9),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: c.loading.value
+                          ? const CircularProgressIndicator(color: AppColors.textPrimary)
+                          : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'sign_in'.tr,
+                            style: TextStyle(color: AppColors.textPrimary, fontSize: 16.sp),
+                          ),
+                          const SizedBox(width: 8),
+                          Icon(Icons.arrow_forward, color: AppColors.textPrimary),
+                        ],
+                      ),
                     ),
                   ),
-                )),
+                ),
 
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Don't have an account?  ",
-                      style: TextStyle(color: Colors.white70),
-                    ),
+                    Text("dont_have_account".tr + ' ', style: TextStyle(color: Colors.white70)),
                     TextButton(
                       onPressed: () {
-                        // open signin sheet on top
-                        Get.back(); // or Navigator.of(context).pop();
+                        Get.back();
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
@@ -140,14 +152,11 @@ class SignInSheet extends StatelessWidget {
                           builder: (_) => const SignUpSheetWrapper(),
                         );
                       },
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(color: AppColors.primary),
-                      ),
+                      child: Text('sign_up'.tr, style: const TextStyle(color: AppColors.primary)),
                     ),
                   ],
                 ),
-                LabeledDivider(label: 'Or continue with', pillColor: Color(0xFF0B0E14)),
+                LabeledDivider(label: 'or_continue_with'.tr, pillColor: const Color(0xFF0B0E14)),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -156,17 +165,8 @@ class SignInSheet extends StatelessWidget {
                         onPressed: () {
                           // Google sign-in action
                         },
-                        // try to use an asset if you have it
-                        leading: (true)
-                            ? Image.asset('assets/google.png', width: 20, height: 20, fit: BoxFit.contain)
-                        // fallback: small colored 'G' circle
-                            : Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                          child: const Center(child: Text('G', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))),
-                        ),
-                        label: 'Google',
+                        leading: Image.asset('assets/google.png', width: 20, height: 20, fit: BoxFit.contain),
+                        label: 'google'.tr,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -175,9 +175,8 @@ class SignInSheet extends StatelessWidget {
                         onPressed: () {
                           // Apple sign-in action
                         },
-                        // use built-in icon or asset
                         leading: Icon(Icons.apple, size: 20, color: Colors.white),
-                        label: 'Apple',
+                        label: 'apple'.tr,
                       ),
                     ),
                   ],
@@ -191,8 +190,6 @@ class SignInSheet extends StatelessWidget {
     );
   }
 }
-
-
 
 // tiny wrapper to resolve circular import in SignInSheet -> SignUpSheet
 class SignUpSheetWrapper extends StatelessWidget {

@@ -27,7 +27,7 @@ class GlassAuthButton extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
           child: Container(
             height: height,
-            padding: const EdgeInsets.symmetric(horizontal: 14),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -39,7 +39,6 @@ class GlassAuthButton extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(radius),
               border: Border.all(color: Colors.white.withOpacity(0.04)),
-
             ),
             child: Center(
               child: Row(
@@ -47,13 +46,12 @@ class GlassAuthButton extends StatelessWidget {
                 children: [
                   // leading icon / image
                   SizedBox(width: 36, child: Center(child: leading)),
-                  const SizedBox(width: 2),
+                  const SizedBox(width: 6),
                   Text(
                     label,
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w600),
                   ),
-
                 ],
               ),
             ),

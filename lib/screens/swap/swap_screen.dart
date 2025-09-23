@@ -1,3 +1,4 @@
+// lib/screens/swap/swap_screen.dart
 import 'dart:ui';
 
 import 'package:flex/screens/swap/widgets/amount_card.dart';
@@ -25,13 +26,13 @@ class SwapScreen extends StatelessWidget {
         elevation: 0,
         leading: const BackButton(),
         centerTitle: true,
-        title: const Text('Swap', style: TextStyle(fontWeight: FontWeight.w600)),
+        title: Text('swap'.tr, style: const TextStyle(fontWeight: FontWeight.w600), textAlign: TextAlign.start),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 18.0, vertical: 12),
         child: Column(
           children: [
             const SizedBox(height: 8),
@@ -39,58 +40,59 @@ class SwapScreen extends StatelessWidget {
             AmountCard(
               controller: c,
               which: AmountCardType.send,
-              label: 'You send',
+              // label should be localized inside AmountCard or passed as a key
+              label: 'you_send'.tr,
               radius: radius,
             ),
             const SizedBox(height: 18),
+
             // swap icon
-
-
-      Center(
-      child: GestureDetector(
-      onTap: c.swapCurrencies,
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white.withOpacity(0.08), // halki transparency
-                Colors.white.withOpacity(0.02),
-              ],
+            Center(
+              child: GestureDetector(
+                onTap: c.swapCurrencies,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withOpacity(0.08),
+                        Colors.white.withOpacity(0.02),
+                      ],
+                    ),
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.2),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12), // blur strength
+                      child: const Icon(IconlyLight.swap, color: Colors.white, size: 28),
+                    ),
+                  ),
+                ),
+              ),
             ),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.2),
-              width: 1.5,
-            ),
+            const SizedBox(height: 18),
 
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12), // blur strength
-              child: const Icon(IconlyLight.swap, color: Colors.white, size: 28),
-            ),
-          ),
-        ),
-      ),
-    ),
-    const SizedBox(height: 18),
             // You get
             AmountCard(
               controller: c,
               which: AmountCardType.get,
-              label: 'You get',
+              label: 'you_get'.tr,
               radius: radius,
             ),
             const SizedBox(height: 20),
+
             // exchange rate box (reactive)
             Obx(
                   () => Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.03),
                   borderRadius: BorderRadius.circular(12),
@@ -99,39 +101,62 @@ class SwapScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
-                      Text('Exchange Rate', style: TextStyle(fontSize: 13, color: Colors.white70)),
-                      SizedBox(height: 6),
-                      Text('Network Fee', style: TextStyle(fontSize: 12, color: Colors.white54)),
-                    ]),
-                    Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                      Text('1 ${c.from} = ${c.exchangeRateString} ${c.to}',
-                          style: const TextStyle(fontWeight: FontWeight.w600)),
-                      const SizedBox(height: 6),
-                      Text('\$${c.networkFee.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white70)),
-                    ]),
+                    // left column (labels) - keep labels localized
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('exchange_rate_label'.tr, style: const TextStyle(fontSize: 13, color: Colors.white70)),
+                        const SizedBox(height: 6),
+                        Text('network_fee_label'.tr, style: const TextStyle(fontSize: 12, color: Colors.white54)),
+                      ],
+                    ),
+
+                    // right column (values) - using trArgs for exchange-rate string with placeholders
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        // example key: "1 {0} = {1} {2}" -> params: from, rate, to
+                        Text(
+                          'exchange_rate_value'.trArgs([c.from, c.exchangeRateString, c.to]),
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.end,
+                        ),
+                        const SizedBox(height: 6),
+                        Text('\$${c.networkFee.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white70)),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 50,),
+            const SizedBox(height: 50),
+
             // Bottom big button
             Container(
               color: Colors.transparent,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 30),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0, vertical: 30),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // perform swap (call controller method)
+                    // c.performSwap();
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Swap ${c.youSendText.value} ${c.from}', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700)),
+                      // Using trArgs to inject dynamic text into button label
+                      Obx(() {
+                        // example: "Swap {0} {1}" where {0} = youSendText, {1} = from currency
+                        return Text(
+                          'swap_action'.trArgs([c.youSendText.value, c.from]),
+                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700),
+                        );
+                      }),
                     ],
                   ),
                 ),

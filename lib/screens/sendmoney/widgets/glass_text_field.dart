@@ -2,8 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../../../constant/app_colors.dart';
-
-/// Reusable frosted / glass textfield
 class GlassTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String hint;
@@ -108,40 +106,4 @@ class GlassTextField extends StatelessWidget {
   }
 }
 
-// ---------------- Example usage ----------------
-class DemoGlassTextFieldScreen extends StatelessWidget {
-  const DemoGlassTextFieldScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    // NOTE: BackdropFilter shows blur only if there's something behind it.
-    // Put a background image / gradient to get full glass effect.
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0F0D22), Color(0xFF16122A)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 80),
-        child: Column(
-          children: [
-            GlassTextField(
-              hint: 'Search by name, email, or phone',
-              prefixIcon: Icon(Icons.search, color: AppColors.primary, size: 18),
-              onChanged: (v) {},
-            ),
-            SizedBox(height: 20),
-            GlassTextField(
-              hint: 'Password',
-              prefixIcon: Icon(Icons.lock_outline, color: AppColors.primary, size: 18),
-              obscureText: true,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

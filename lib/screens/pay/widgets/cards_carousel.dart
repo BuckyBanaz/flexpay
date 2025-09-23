@@ -1,3 +1,4 @@
+// lib/screens/pay/widgets/cards_carousel.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ class CardsCarousel extends StatelessWidget {
         height: 130,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
           itemCount: c.cards.length,
           separatorBuilder: (_, __) => const SizedBox(width: 12),
           itemBuilder: (context, i) {
@@ -26,7 +27,7 @@ class CardsCarousel extends StatelessWidget {
               onTap: () => c.onPayWithCard(i),
               child: Container(
                 width: 200,
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsetsDirectional.all(12),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [cardColor.withOpacity(0.95), cardColor.withOpacity(0.8)]),
                   borderRadius: BorderRadius.circular(12),
@@ -46,9 +47,9 @@ class CardsCarousel extends StatelessWidget {
                       ),
                       const Spacer(),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 4),
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white24),
-                        child: Text('Balance', style: const TextStyle(fontSize: 10, color: Colors.white70)),
+                        child: Text('balance'.tr, style: const TextStyle(fontSize: 10, color: Colors.white70)),
                       )
                     ]),
                     const SizedBox(height: 10),
@@ -66,14 +67,12 @@ class CardsCarousel extends StatelessWidget {
                           width: 30,
                           decoration: BoxDecoration(
                             image: DecorationImage(image: AssetImage(AppAssets.visaCard)),
-
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Center(
                             child: Text('VISA', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w800)),
                           ),
                         ),
-
                       ],
                     ),
                   ],

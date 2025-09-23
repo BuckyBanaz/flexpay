@@ -1,20 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../../constant/app_colors.dart';
-
-// Replace this with your actual AppColors import
-// import 'package:your_project/constant/app_colors.dart';
-
-// Temporary fallback AppColors if you don't have the file yet.
-// Remove this when you use your real AppColors.
-
-
+// lib/screens/profile/widgets/profile_card.dart
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-// Example AppColors (replace with your real ones)
+import '../../../constant/app_colors.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({super.key});
@@ -26,7 +15,7 @@ class ProfileCard extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
         child: Container(
           width: 300,
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsetsDirectional.all(22),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
@@ -40,7 +29,6 @@ class ProfileCard extends StatelessWidget {
                 spreadRadius: 0.5,
                 offset: const Offset(-1, -1),
               ),
-
             ],
           ),
           child: Column(
@@ -67,17 +55,17 @@ class ProfileCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       radius: 40,
-                      backgroundImage: const NetworkImage(
+                      backgroundImage: NetworkImage(
                         "https://i.pravatar.cc/150?img=3",
                       ),
                     ),
                   ),
 
-                  // Green check badge
-                  Positioned(
-                    right: -6,
+                  // Green check badge (mirrors in RTL because we use end)
+                  PositionedDirectional(
+                    end: -6,
                     top: -6,
                     child: Container(
                       height: 26,
@@ -91,9 +79,9 @@ class ProfileCard extends StatelessWidget {
                     ),
                   ),
 
-                  // Orange medal badge
-                  Positioned(
-                    right: -6,
+                  // Orange medal badge (mirrors in RTL because we use end)
+                  PositionedDirectional(
+                    end: -6,
                     bottom: -6,
                     child: Container(
                       height: 32,
@@ -111,37 +99,40 @@ class ProfileCard extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              // Name
+              // Name (use reactive user name later if available)
               Text(
-                "Sandy Chungus",
+                'user_name'.tr,
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textPrimary,
                 ),
+                textAlign: TextAlign.start,
               ),
 
               const SizedBox(height: 6),
 
               // Premium Member
               Text(
-                "Premium Member",
+                'premium_member'.tr,
                 style: GoogleFonts.poppins(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primary,
                 ),
+                textAlign: TextAlign.start,
               ),
 
               const SizedBox(height: 6),
 
-              // Member since
+              // Member since (use trArgs to inject year)
               Text(
-                "Member since 2023",
+                'member_since'.trArgs(['2023']),
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: Colors.white70,
                 ),
+                textAlign: TextAlign.start,
               ),
 
               const SizedBox(height: 18),
@@ -153,14 +144,16 @@ class ProfileCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 22, vertical: 10),
                   elevation: 6,
                   shadowColor: AppColors.primary.withOpacity(0.35),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // TODO: open edit profile screen
+                },
                 icon: const Icon(Icons.edit, color: Colors.white, size: 16),
                 label: Text(
-                  "Edit Profile",
+                  'edit_profile'.tr,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     color: Colors.white,
@@ -175,4 +168,3 @@ class ProfileCard extends StatelessWidget {
     );
   }
 }
-

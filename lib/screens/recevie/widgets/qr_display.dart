@@ -1,8 +1,8 @@
+// lib/screens/receive/widgets/qr_display.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../modules/receive/receive_controller.dart';
-
 
 class QRDisplay extends StatelessWidget {
   // allow parent to pass a repaint key if they want to capture image
@@ -14,20 +14,21 @@ class QRDisplay extends StatelessWidget {
     final ReceiveController c = Get.find();
     return Column(
       children: [
-        // Amount label
         const SizedBox(height: 6),
-        const Text('Request Amount (Optional)', style: TextStyle(color: Colors.white54)),
+        Text('request_amount_optional'.tr, style: const TextStyle(color: Colors.white54), textAlign: TextAlign.start),
         const SizedBox(height: 6),
-        Obx(() => Text('\$${c.amount.value.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white))),
-
+        Obx(() => Text(
+          '\$${c.amount.value.toStringAsFixed(2)}',
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white),
+          textAlign: TextAlign.start,
+        )),
         const SizedBox(height: 18),
 
         // QR box: use RepaintBoundary if parent passed a key for saving
         RepaintBoundary(
           key: repaintKey,
           child: Container(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsetsDirectional.all(18),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: Colors.white.withOpacity(0.02),
@@ -58,11 +59,11 @@ class QRDisplay extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: c.shareCode,
                 icon: const Icon(Icons.share, color: Colors.white70),
-                label: const Text('Share', style: TextStyle(color: Colors.white70)),
+                label: Text('share'.tr, style: const TextStyle(color: Colors.white70)),
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white.withOpacity(0.02),
                   side: BorderSide(color: Colors.white.withOpacity(0.04)),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
                 ),
               ),
             ),
@@ -71,10 +72,10 @@ class QRDisplay extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: c.saveQrImage,
                 icon: const Icon(Icons.download_outlined, color: Color(0xFF071124)),
-                label: const Text('Save QR', style: TextStyle(color: Color(0xFF071124))),
+                label: Text('save_qr'.tr, style: const TextStyle(color: Color(0xFF071124))),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF13E0E9),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
                 ),
               ),
             )

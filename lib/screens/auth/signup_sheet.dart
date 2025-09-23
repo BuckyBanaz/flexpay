@@ -23,7 +23,7 @@ class SignUpSheet extends StatelessWidget {
       expand: false,
       builder: (_, controllerScroll) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 18, vertical: 18),
           decoration: BoxDecoration(
             color: const Color(0xFF151229),
             borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
@@ -37,7 +37,7 @@ class SignUpSheet extends StatelessWidget {
                   child: Container(
                     width: 48,
                     height: 4,
-                    margin: const EdgeInsets.only(bottom: 12),
+                    margin: const EdgeInsetsDirectional.only(bottom: 12),
                     decoration: BoxDecoration(
                       color: Colors.white12,
                       borderRadius: BorderRadius.circular(20),
@@ -48,11 +48,12 @@ class SignUpSheet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Create Account',
+                      'create_account'.tr,
                       style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
+                      textAlign: TextAlign.start,
                     ),
                     GestureDetector(
                       onTap: () => Get.back(),
@@ -63,49 +64,47 @@ class SignUpSheet extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 // Full name
-                Text('Full Name', style: TextStyle(color: Colors.white70)),
+                Text('full_name'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
                 GlassTextField(
                   controller: c.nameCtrl,
-                  hint: 'Enter your full name',
+                  hint: 'enter_full_name'.tr,
                   prefix: Icons.person_outline,
                 ),
                 const SizedBox(height: 12),
 
                 // Email
-                Text('Email', style: TextStyle(color: Colors.white70)),
+                Text('email'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
                 GlassTextField(
                   controller: c.emailCtrl,
-                  hint: 'Enter your email',
+                  hint: 'enter_email'.tr,
                   prefix: Icons.email_outlined,
                 ),
                 const SizedBox(height: 12),
 
                 // Phone
-                Text('Phone Number', style: TextStyle(color: Colors.white70)),
+                Text('phone_number'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
                 GlassTextField(
                   controller: c.phoneCtrl,
-                  hint: 'Enter your phone number',
+                  hint: 'enter_phone'.tr,
                   prefix: Icons.phone_outlined,
                 ),
                 const SizedBox(height: 12),
 
                 // Password
-                Text('Password', style: TextStyle(color: Colors.white70)),
+                Text('password'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
                 Obx(
-                  () => GlassTextField(
+                      () => GlassTextField(
                     controller: c.passCtrl,
-                    hint: 'Create a password',
+                    hint: 'create_password'.tr,
                     prefix: Icons.lock_outline,
                     obscure: !c.passwordVisible.value,
                     suffix: IconButton(
                       icon: Icon(
-                        c.passwordVisible.value
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                        c.passwordVisible.value ? Icons.visibility_off : Icons.visibility,
                         color: Colors.white54,
                       ),
                       onPressed: () => c.passwordVisible.toggle(),
@@ -115,22 +114,17 @@ class SignUpSheet extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 // Confirm Password
-                Text(
-                  'Confirm Password',
-                  style: TextStyle(color: Colors.white70),
-                ),
+                Text('confirm_password'.tr, style: TextStyle(color: Colors.white70)),
                 const SizedBox(height: 8),
                 Obx(
-                  () => GlassTextField(
+                      () => GlassTextField(
                     controller: c.confirmPassCtrl,
-                    hint: 'Confirm your password',
+                    hint: 'confirm_password_hint'.tr,
                     prefix: Icons.lock_outline,
                     obscure: !c.confirmPasswordVisible.value,
                     suffix: IconButton(
                       icon: Icon(
-                        c.confirmPasswordVisible.value
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                        c.confirmPasswordVisible.value ? Icons.visibility_off : Icons.visibility,
                         color: Colors.white54,
                       ),
                       onPressed: () => c.confirmPasswordVisible.toggle(),
@@ -140,7 +134,7 @@ class SignUpSheet extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 Obx(
-                  () => Row(
+                      () => Row(
                     children: [
                       Checkbox(
                         value: c.agreeTos.value,
@@ -149,15 +143,16 @@ class SignUpSheet extends StatelessWidget {
                       ),
                       Flexible(
                         child: RichText(
+                          textAlign: TextAlign.start,
                           text: TextSpan(
                             style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 14,
                             ),
                             children: [
-                              const TextSpan(text: "I agree to the "),
+                              TextSpan(text: 'i_agree'.tr + ' '),
                               TextSpan(
-                                text: "Terms of Service",
+                                text: 'terms_of_service'.tr,
                                 style: const TextStyle(
                                   color: AppColors.primary,
                                 ),
@@ -166,9 +161,9 @@ class SignUpSheet extends StatelessWidget {
                                     // TODO: Open Terms of Service page
                                   },
                               ),
-                              const TextSpan(text: " and "),
+                              TextSpan(text: ' ' + 'and'.tr + ' '),
                               TextSpan(
-                                text: "Privacy Policy",
+                                text: 'privacy_policy'.tr,
                                 style: TextStyle(color: AppColors.primary),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
@@ -185,7 +180,7 @@ class SignUpSheet extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 Obx(
-                  () => SizedBox(
+                      () => SizedBox(
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
@@ -197,16 +192,11 @@ class SignUpSheet extends StatelessWidget {
                         ),
                       ),
                       child: c.loading.value
-                          ? const CircularProgressIndicator(
-                              color: AppColors.textPrimary,
-                            )
+                          ? const CircularProgressIndicator(color: AppColors.textPrimary)
                           : Text(
-                              'Create Account',
-                              style: TextStyle(
-                                color: AppColors.textPrimary,
-                                fontSize: 16.sp,
-                              ),
-                            ),
+                        'create_account'.tr,
+                        style: TextStyle(color: AppColors.textPrimary, fontSize: 16.sp),
+                      ),
                     ),
                   ),
                 ),
@@ -215,15 +205,10 @@ class SignUpSheet extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Already have an account? ',
-                      style: TextStyle(color: Colors.white70),
-                    ),
+                    Text('already_have_account'.tr + ' ', style: TextStyle(color: Colors.white70)),
                     TextButton(
                       onPressed: () {
-                        // open signin sheet on top
-
-                        Get.back(); // or Navigator.of(context).pop();
+                        Get.back();
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
@@ -231,14 +216,11 @@ class SignUpSheet extends StatelessWidget {
                           builder: (_) => const SignInSheetWrapper(),
                         );
                       },
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(color: AppColors.primary),
-                      ),
+                      child: Text('sign_in'.tr, style: const TextStyle(color: AppColors.primary)),
                     ),
                   ],
                 ),
-                LabeledDivider(label: 'Or sign up with'),
+                LabeledDivider(label: 'or_sign_up_with'.tr),
                 const SizedBox(height: 14),
                 Row(
                   children: [
@@ -247,17 +229,8 @@ class SignUpSheet extends StatelessWidget {
                         onPressed: () {
                           // Google sign-in action
                         },
-                        // try to use an asset if you have it
-                        leading: (true)
-                            ? Image.asset('assets/google.png', width: 20, height: 20, fit: BoxFit.contain)
-                        // fallback: small colored 'G' circle
-                            : Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                          child: const Center(child: Text('G', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))),
-                        ),
-                        label: 'Google',
+                        leading: Image.asset('assets/google.png', width: 20, height: 20, fit: BoxFit.contain),
+                        label: 'google'.tr,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -266,9 +239,8 @@ class SignUpSheet extends StatelessWidget {
                         onPressed: () {
                           // Apple sign-in action
                         },
-                        // use built-in icon or asset
                         leading: Icon(Icons.apple, size: 20, color: Colors.white),
-                        label: 'Apple',
+                        label: 'apple'.tr,
                       ),
                     ),
                   ],

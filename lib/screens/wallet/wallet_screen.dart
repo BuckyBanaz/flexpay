@@ -1,3 +1,4 @@
+// lib/screens/wallet/wallet_screen.dart
 import 'dart:ui';
 
 import 'package:flex/screens/wallet/widgets/animated_action_button.dart';
@@ -10,15 +11,6 @@ import 'package:iconly/iconly.dart';
 import '../../constant/app_colors.dart';
 import '../../modules/wallet/wallet_controller.dart';
 import '../../routes/appRoutes.dart';
-import '../../utils/gradient_scaffold.dart';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-// Keep using your existing AppColors, GradientScaffold and WalletController
-// Make sure those are available in your project.
 
 class WalletScreen extends StatefulWidget {
   WalletScreen({super.key});
@@ -32,9 +24,6 @@ class _WalletScreenState extends State<WalletScreen>
     with SingleTickerProviderStateMixin {
   late PageController _pageController;
   double _page = 0.0;
-
-  // track press state for action buttons (0..3)
-  final Map<int, bool> _isPressed = {0: false, 1: false, 2: false, 3: false};
 
   // animation for Add Card panel entrance
   late AnimationController _panelAnimController;
@@ -69,7 +58,6 @@ class _WalletScreenState extends State<WalletScreen>
       CurvedAnimation(parent: _panelAnimController, curve: Curves.easeOut),
     );
 
-    // start entrance animation a little after build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _panelAnimController.forward();
     });
@@ -89,29 +77,30 @@ class _WalletScreenState extends State<WalletScreen>
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Wallet"),
+        title: Text('wallet'.tr, textAlign: TextAlign.start),
         actions: [const Icon(Icons.more_vert)],
       ),
 
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
           child: ListView(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 100),
+            padding: const EdgeInsetsDirectional.only(start: 8, end: 8, bottom: 100),
             children: [
               // Tabs
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
                       children: [
                         Text(
-                          "Cards",
+                          'cards'.tr,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                           ),
+                          textAlign: TextAlign.start,
                         ),
                         const SizedBox(height: 4),
                         Container(
@@ -126,7 +115,7 @@ class _WalletScreenState extends State<WalletScreen>
                     ),
                     const SizedBox(width: 30),
                     Text(
-                      "Account",
+                      'account'.tr,
                       style: GoogleFonts.poppins(color: Colors.grey),
                     ),
                   ],
@@ -139,30 +128,20 @@ class _WalletScreenState extends State<WalletScreen>
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: controller.cards.length,
-                  onPageChanged: (index) =>
-                      controller.currentIndex.value = index,
+                  onPageChanged: (index) => controller.currentIndex.value = index,
                   itemBuilder: (context, index) {
                     final card = controller.cards[index];
 
-                    // closeness factor: 1.0 for active, decreases for others
-                    final double distance = (_page - index).abs().clamp(
-                      0.0,
-                      1.0,
-                    );
-                    final double scale =
-                        1 - (distance * 0.06); // active card slightly bigger
-                    final double shadowBlur =
-                        18 + (1 - distance) * 16; // active card more blur
+                    final double distance = (_page - index).abs().clamp(0.0, 1.0);
+                    final double scale = 1 - (distance * 0.06);
+                    final double shadowBlur = 18 + (1 - distance) * 16;
                     final double shadowOpacity = 0.20 + (1 - distance) * 0.18;
 
                     return Transform.scale(
                       scale: scale,
                       alignment: Alignment.center,
                       child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 8,
-                        ),
+                        margin: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 8),
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
@@ -183,7 +162,7 @@ class _WalletScreenState extends State<WalletScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: Alignment.topRight,
+                              alignment: AlignmentDirectional.topEnd,
                               child: Icon(
                                 Icons.wifi,
                                 color: Colors.white.withOpacity(0.95),
@@ -202,11 +181,13 @@ class _WalletScreenState extends State<WalletScreen>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  card["name"].toString(),
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: Colors.white,
+                                Expanded(
+                                  child: Text(
+                                    card["name"].toString(),
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Image.network(
@@ -227,28 +208,26 @@ class _WalletScreenState extends State<WalletScreen>
 
               // Animated Page Indicator
               Obx(
-                () => Row(
+                    () => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(controller.cards.length, (index) {
                     final bool active = controller.currentIndex.value == index;
                     return AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
-                      margin: const EdgeInsets.symmetric(horizontal: 6),
+                      margin: const EdgeInsetsDirectional.symmetric(horizontal: 6),
                       width: active ? 20 : 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: active
-                            ? AppColors.primary
-                            : Colors.grey.withOpacity(0.6),
+                        color: active ? AppColors.primary : Colors.grey.withOpacity(0.6),
                         borderRadius: BorderRadius.circular(6),
                         boxShadow: active
                             ? [
-                                BoxShadow(
-                                  color: AppColors.primary.withOpacity(0.25),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ]
+                          BoxShadow(
+                            color: AppColors.primary.withOpacity(0.25),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ]
                             : null,
                       ),
                     );
@@ -258,13 +237,12 @@ class _WalletScreenState extends State<WalletScreen>
 
               const SizedBox(height: 16),
 
-              // Customization Button with gentle tap scale
+              // Customization Button
               Align(
-                alignment: Alignment.centerRight,
+                alignment: AlignmentDirectional.centerEnd,
                 child: GestureDetector(
                   onTapDown: (_) => setState(() {}),
                   onTapUp: (_) {
-                    // open customization
                     Get.toNamed(AppRoutes.customization);
                     setState(() {});
                   },
@@ -278,10 +256,7 @@ class _WalletScreenState extends State<WalletScreen>
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
+                          padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -298,10 +273,8 @@ class _WalletScreenState extends State<WalletScreen>
                             ),
                           ),
                           child: Text(
-                            "Customization",
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                            ),
+                            'customization'.tr,
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
@@ -312,15 +285,15 @@ class _WalletScreenState extends State<WalletScreen>
 
               const SizedBox(height: 24),
 
-              // Action Buttons with press scale animation
+              // Action Buttons
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     AnimatedActionButton(
                       icon: Icons.send,
-                      label: "Send",
+                      label: 'send'.tr,
                       gradientColors: [
                         const Color(0xFFEC4899),
                         const Color(0xFF8B5CF6),
@@ -331,7 +304,7 @@ class _WalletScreenState extends State<WalletScreen>
                     ),
                     AnimatedActionButton(
                       icon: Icons.swap_horiz,
-                      label: "Swap",
+                      label: 'swap'.tr,
                       gradientColors: [
                         const Color(0xFF38BDF8),
                         const Color(0xFF06B6D4),
@@ -342,7 +315,7 @@ class _WalletScreenState extends State<WalletScreen>
                     ),
                     AnimatedActionButton(
                       icon: Icons.arrow_downward,
-                      label: "Receive",
+                      label: 'receive'.tr,
                       gradientColors: [
                         const Color(0xFF4ADE80),
                         const Color(0xFF22C55E),
@@ -353,7 +326,7 @@ class _WalletScreenState extends State<WalletScreen>
                     ),
                     AnimatedActionButton(
                       icon: Icons.payment,
-                      label: "Pay",
+                      label: 'pay'.tr,
                       gradientColors: [
                         const Color(0xFF3B82F6),
                         const Color(0xFF06B6D4),
@@ -375,14 +348,14 @@ class _WalletScreenState extends State<WalletScreen>
                 child: FadeTransition(
                   opacity: _panelOpacityAnim,
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsetsDirectional.all(12.0),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16), // pill shape
+                      borderRadius: BorderRadius.circular(16),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                         child: Container(
                           width: double.infinity,
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsetsDirectional.all(16),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -392,7 +365,6 @@ class _WalletScreenState extends State<WalletScreen>
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
-
                             border: Border.all(
                               color: Colors.white.withOpacity(0.08),
                               width: 1.2,
@@ -405,32 +377,23 @@ class _WalletScreenState extends State<WalletScreen>
                               // Header row: QR icon, + Add Card, Cancel
                               Row(
                                 children: [
-                                  Icon(
-                                    CupertinoIcons.qrcode,
-                                    color: AppColors.primary,
-                                    size: 20,
-                                  ),
+                                  Icon(CupertinoIcons.qrcode, color: AppColors.primary, size: 20),
                                   const SizedBox(width: 10),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "+ Add Card",
-                                        style: GoogleFonts.poppins(
-                                          color: AppColors.primary,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    '+ ' + 'add_card'.tr,
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                   const Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      // Cancel action
                                       Navigator.maybePop(context);
                                     },
                                     child: Text(
-                                      "Cancel",
+                                      'cancel'.tr,
                                       style: GoogleFonts.poppins(
                                         color: AppColors.primary,
                                         fontSize: 14,
@@ -444,7 +407,7 @@ class _WalletScreenState extends State<WalletScreen>
                               const SizedBox(height: 14),
 
                               Text(
-                                "Add your debit/credit card",
+                                'add_card_subtitle'.tr,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white.withOpacity(0.7),
                                   fontSize: 13,
@@ -455,7 +418,7 @@ class _WalletScreenState extends State<WalletScreen>
 
                               // Card number field label
                               Text(
-                                "Card number",
+                                'card_number'.tr,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white.withOpacity(0.75),
                                   fontSize: 13,
@@ -464,7 +427,7 @@ class _WalletScreenState extends State<WalletScreen>
                               ),
                               const SizedBox(height: 8),
                               _inputField(
-                                hint: "XXXX XXXX XXXX XXXX",
+                                hint: 'card_number_hint'.tr,
                                 context: context,
                               ),
 
@@ -472,7 +435,7 @@ class _WalletScreenState extends State<WalletScreen>
 
                               // Card holder name label
                               Text(
-                                "Card holder name",
+                                'card_holder_name'.tr,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white.withOpacity(0.75),
                                   fontSize: 13,
@@ -480,7 +443,7 @@ class _WalletScreenState extends State<WalletScreen>
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              _inputField(hint: "Full name", context: context),
+                              _inputField(hint: 'card_holder_hint'.tr, context: context),
 
                               const SizedBox(height: 18),
 
@@ -494,16 +457,14 @@ class _WalletScreenState extends State<WalletScreen>
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,
                                     foregroundColor: Colors.black,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
+                                    padding: const EdgeInsets.symmetric(vertical: 14),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     elevation: 2,
                                   ),
                                   child: Text(
-                                    "Add Card",
+                                    'add_card'.tr,
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
@@ -535,10 +496,7 @@ class _WalletScreenState extends State<WalletScreen>
         hintStyle: TextStyle(color: Colors.white.withOpacity(0.25)),
         filled: true,
         fillColor: Colors.white.withOpacity(0.02),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 14,
-        ),
+        contentPadding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 14),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
@@ -554,6 +512,7 @@ class _WalletScreenState extends State<WalletScreen>
           ),
         ),
       ),
+      textAlign: TextAlign.start,
     );
   }
 }

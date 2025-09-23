@@ -1,3 +1,4 @@
+// lib/screens/sendmoney/send_money_screen.dart
 import 'package:flex/constant/app_assets.dart';
 import 'package:flex/constant/app_colors.dart';
 import 'package:flex/screens/sendmoney/widgets/glass_text_field.dart';
@@ -5,6 +6,7 @@ import 'package:flex/screens/sendmoney/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+import 'package:get/get.dart';
 
 class SendMoneyScreen extends StatefulWidget {
   const SendMoneyScreen({super.key});
@@ -36,7 +38,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
           splashRadius: 20,
         ),
         title: Text(
-          'Send Money',
+          'send_money_title'.tr,
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -45,7 +47,6 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
         ),
         centerTitle: true,
         actions: [
-
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.more_vert, color: Colors.white70),
@@ -53,22 +54,21 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenPadding, vertical: 18),
+        padding: EdgeInsetsDirectional.symmetric(horizontal: screenPadding, vertical: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // Amount label + big amount
             Center(
               child: Column(
                 children: [
                   Text(
-                    'Amount (SR)',
+                    'amount_label'.trArgs(['SR']),
                     style: GoogleFonts.poppins(color: Colors.white60, fontSize: 13),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '\$500.4',
+                    '\$500.4', // dynamic: replace with controller value when available
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 34,
@@ -83,22 +83,24 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
 
             // Search field
             GlassTextField(
-              hint: 'Search by name, email, or phone',
+              hint: 'search_hint'.tr,
               prefixIcon: Icon(IconlyLight.search, color: AppColors.primary, size: 18),
               onChanged: (v) {},
             ),
             const SizedBox(height: 18),
 
             // Recent label + avatars
-            Text('Recent', style: GoogleFonts.poppins(color: Colors.white70, fontWeight: FontWeight.w600)),
+            Text('recent'.tr, style: GoogleFonts.poppins(color: Colors.white70, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             SizedBox(
               height: 100,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 0, vertical: 0),
                 itemCount: recentAvatars.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 12),
                 itemBuilder: (context, idx) {
+                  final displayName = idx == 0 ? 'john'.tr : idx == 1 ? 'jane'.tr : idx == 2 ? 'mike'.tr : 'emily'.tr;
                   return Column(
                     children: [
                       CircleAvatar(
@@ -108,7 +110,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             gradient: LinearGradient(
-                              colors: [Color(0xFF7B61FF), AppColors.primary],
+                              colors: [const Color(0xFF7B61FF), AppColors.primary],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
@@ -129,7 +131,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        idx == 0 ? 'John' : idx == 1 ? 'Jane' : idx == 2 ? 'Mike' : 'Emily',
+                        displayName,
                         style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12),
                       )
                     ],
@@ -140,7 +142,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
 
             const SizedBox(height: 18),
 
-            Text('From', style: GoogleFonts.poppins(color: Colors.white70, fontWeight: FontWeight.w600)),
+            Text('from_label'.tr, style: GoogleFonts.poppins(color: Colors.white70, fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
 
             // Cards list
@@ -153,7 +155,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                     child: PaymentCard(
                       selected: selectedCard == 0,
                       gradient: const LinearGradient(
-                        colors: [Color(0xFFA855F7), Color(0xFF9333EA),Color(0xFF7E22CE)],
+                        colors: [Color(0xFFA855F7), Color(0xFF9333EA), Color(0xFF7E22CE)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -168,7 +170,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                     child: PaymentCard(
                       selected: selectedCard == 1,
                       gradient: const LinearGradient(
-                        colors: [Color(0xFF22D3EE), Color(0xFF14B8A6),Color(0xFF4ADE80)],
+                        colors: [Color(0xFF22D3EE), Color(0xFF14B8A6), Color(0xFF4ADE80)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -181,10 +183,6 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                 ],
               ),
             ),
-
-            // Bottom Send button anchored by padding (alternative: FloatingActionButton)
-            // But this screen uses a big bright button near bottom - we keep it above safe area
-            // (We already left spacing in list; nothing else needed)
           ],
         ),
       ),
@@ -192,21 +190,20 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
       bottomNavigationBar: Container(
         color: Colors.transparent,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 30),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0, vertical: 30),
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.send_rounded, color: Colors.white),
                 const SizedBox(width: 12),
-                Text('Send \$500.4', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700)),
+                Text('send_action_label'.trArgs(['\$500.4']), style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700)),
               ],
             ),
           ),
@@ -215,5 +212,3 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
     );
   }
 }
-
-

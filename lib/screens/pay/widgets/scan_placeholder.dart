@@ -1,20 +1,20 @@
+// lib/screens/pay/widgets/scan_placeholder.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../modules/pay/pay_controller.dart';
 
 class ScanPlaceholder extends StatelessWidget {
   const ScanPlaceholder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final PayController c = Get.find();
+    // final PayController c = Get.find(); // if needed later
     return Column(
       children: [
         // Use CustomPaint to draw dashed rounded rect
         Container(
           height: 220,
           width: double.infinity,
-          margin: const EdgeInsets.symmetric(horizontal: 18),
+          margin: const EdgeInsetsDirectional.symmetric(horizontal: 18),
           child: CustomPaint(
             painter: DashedRRectPainter(
               color: Colors.white24,
@@ -24,19 +24,19 @@ class ScanPlaceholder extends StatelessWidget {
               radius: 12,
             ),
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsetsDirectional.all(16),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.01),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
-                child: Column(mainAxisSize: MainAxisSize.min, children: const [
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
                   Icon(Icons.camera_alt_outlined, size: 36, color: Colors.white24),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    'Position the QR code within the frame to scan it',
+                    'scan_instructions'.tr,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white54),
+                    style: const TextStyle(color: Colors.white54),
                   ),
                 ]),
               ),
@@ -44,7 +44,7 @@ class ScanPlaceholder extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        const Text('Scan mode - camera placeholder', style: TextStyle(color: Colors.white70)),
+        Text('scan_mode_placeholder'.tr, style: const TextStyle(color: Colors.white70)),
       ],
     );
   }
@@ -81,7 +81,6 @@ class DashedRRectPainter extends CustomPainter {
 
     final path = Path()..addRRect(rrect);
 
-    // Draw dashed along the path using PathMetrics
     for (final metric in path.computeMetrics()) {
       double distance = 0.0;
       while (distance < metric.length) {

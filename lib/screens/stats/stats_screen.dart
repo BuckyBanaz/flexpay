@@ -1,10 +1,10 @@
+// lib/screens/stats/stats_screen.dart
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../modules/stats/stats_controller.dart';
-
 
 class StatsScreen extends StatelessWidget {
   const StatsScreen({super.key});
@@ -16,16 +16,18 @@ class StatsScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 18.0, vertical: 14),
           child: Column(
             children: [
               // Top row
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Center(
                       child: Text(
-                        'Statistics',
+                        // localized below via .tr (we keep Text here for centering,
+                        // actual string provided in keys)
+                        'statistics_placeholder'.tr,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
@@ -43,7 +45,7 @@ class StatsScreen extends StatelessWidget {
               // Period pills
               Obx(() {
                 int periodIndex = c.periodIndex.value;
-                final labels = ['Week', 'Month', 'Year'];
+                final labels = ['week'.tr, 'month'.tr, 'year'.tr];
                 return Container(
                   height: 40,
                   padding: const EdgeInsets.all(3),
@@ -59,7 +61,7 @@ class StatsScreen extends StatelessWidget {
                           onTap: () => c.setPeriod(i),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 220),
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
+                            margin: const EdgeInsetsDirectional.symmetric(horizontal: 6),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: selected ? const Color(0xFF12E1E8) : Colors.transparent,
@@ -72,6 +74,7 @@ class StatsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 fontSize: 13,
                               ),
+                              textAlign: TextAlign.start,
                             ),
                           ),
                         ),
@@ -87,20 +90,23 @@ class StatsScreen extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    'Total Spendings',
+                    'total_spendings'.tr,
                     style: GoogleFonts.poppins(
                       color: Colors.white70,
                       fontSize: 13,
                     ),
+                    textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 6),
+                  // You can replace the hard-coded value with a reactive value from controller
                   Text(
-                    '\$15,500',
+                    'total_spendings_value'.tr,
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
                     ),
+                    textAlign: TextAlign.start,
                   ),
                 ],
               ),
@@ -109,7 +115,7 @@ class StatsScreen extends StatelessWidget {
 
               // Income/Outcome tab with indicator
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
                 child: Obx(() {
                   int io = c.incomeOutcomeIndex.value;
                   return Row(
@@ -119,7 +125,7 @@ class StatsScreen extends StatelessWidget {
                           onTap: () => c.setIncomeOutcome(0),
                           child: Column(
                             children: [
-                              Text('Income',
+                              Text('income'.tr,
                                   style: GoogleFonts.poppins(
                                       color: io == 0 ? Colors.white : Colors.white70)),
                               const SizedBox(height: 8),
@@ -133,7 +139,7 @@ class StatsScreen extends StatelessWidget {
                           onTap: () => c.setIncomeOutcome(1),
                           child: Column(
                             children: [
-                              Text('Outcome',
+                              Text('outcome'.tr,
                                   style: GoogleFonts.poppins(
                                       color: io == 1 ? Colors.white : Colors.white70)),
                               const SizedBox(height: 8),
@@ -172,8 +178,8 @@ class StatsScreen extends StatelessWidget {
                       // Card-ish background with blur/glass effect behind chart
                       Positioned.fill(
                         child: Container(
-                          margin: const EdgeInsets.only(top: 8),
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+                          margin: const EdgeInsetsDirectional.only(top: 8),
+                          padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 18),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.03),
                             borderRadius: BorderRadius.circular(16),
@@ -182,14 +188,14 @@ class StatsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Overview',
+                              Text('overview'.tr,
                                   style: GoogleFonts.poppins(
                                       color: Colors.white70, fontWeight: FontWeight.w600)),
                               const SizedBox(height: 8),
                               // Chart container
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8),
+                                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 6.0, vertical: 8),
                                   child: Obx(() {
                                     final spots = c.weekSpots;
                                     final minY = (spots.map((s) => s.y).reduce((a, b) => a < b ? a : b) * 0.9)
@@ -218,7 +224,15 @@ class StatsScreen extends StatelessWidget {
                                           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                                           bottomTitles: AxisTitles(
                                             sideTitles: SideTitles(showTitles: true, reservedSize: 30, getTitlesWidget: (value, meta) {
-                                              const labels = ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'];
+                                              final labels = [
+                                                'tue'.tr,
+                                                'wed'.tr,
+                                                'thu'.tr,
+                                                'fri'.tr,
+                                                'sat'.tr,
+                                                'sun'.tr,
+                                                'mon'.tr
+                                              ];
                                               int idx = value.toInt();
                                               if (idx >= 0 && idx < labels.length) {
                                                 return Text(labels[idx], style: GoogleFonts.poppins(color: Colors.white54, fontSize: 11));
@@ -235,7 +249,6 @@ class StatsScreen extends StatelessWidget {
                                             isCurved: true,
                                             curveSmoothness: 0.6,
                                             preventCurveOverShooting: true,
-                                            // gradient is enough — no colorStops for this fl_chart version
                                             gradient: const LinearGradient(
                                               colors: [Color(0xFF00E5FF), Color(0xFF00B4FF)],
                                             ),
@@ -266,7 +279,6 @@ class StatsScreen extends StatelessWidget {
                                         lineTouchData: LineTouchData(
                                           enabled: true,
                                           touchCallback: (FlTouchEvent event, LineTouchResponse? resp) {
-                                            // when user taps a point, update highlighted index
                                             if (resp != null && resp.lineBarSpots != null && resp.lineBarSpots!.isNotEmpty) {
                                               final idx = resp.lineBarSpots!.first.spotIndex;
                                               c.setHighlightedIndex(idx);
@@ -282,8 +294,6 @@ class StatsScreen extends StatelessWidget {
                                             }).toList();
                                           },
                                           touchTooltipData: LineTouchTooltipData(
-                                            // not using built-in tooltip background; we overlay our own bubble
-                                            tooltipBorderRadius: BorderRadius.circular(8),
                                             getTooltipItems: (spots) {
                                               return spots.map((s) => LineTooltipItem('', const TextStyle())).toList();
                                             },
@@ -295,33 +305,36 @@ class StatsScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              // bottom labels row spacing (already handled by chart bottom titles)
                             ],
                           ),
                         ),
                       ),
 
-                      // Overlay bubble & value chip using approximate position based on data (works well)
-                      // We compute the position by mapping index -> relative x and value -> relative y
+                      // Overlay bubble & value chip using approximate position based on data
                       Positioned.fill(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 24),
+                          padding: const EdgeInsetsDirectional.symmetric(horizontal: 18.0, vertical: 24),
                           child: Obx(() {
                             final spots = c.weekSpots;
                             final idx = c.highlightedPointIndex.value.clamp(0, spots.length - 1);
                             final minY = spots.map((s) => s.y).reduce((a, b) => a < b ? a : b) * 0.9;
                             final maxY = spots.map((s) => s.y).reduce((a, b) => a > b ? a : b) * 1.1;
 
-                            // safe-size for calculation
-                            final usableWidth = (chartWidth - 36); // account for padding
+                            final usableWidth = (chartWidth - 36);
                             final usableHeight = (chartHeight - 70).clamp(60.0, chartHeight);
 
-                            // normalized positions
                             final xPercentage = idx / (spots.length - 1);
                             final yPercentage = (spots[idx].y - minY) / (maxY - minY);
-                            final xPos = 18 + xPercentage * usableWidth;
-                            // chart's y grows downward on screen, but yPercentage higher means higher value -> lower y coordinate on screen
+
+                            // base positions (LTR)
+                            var xPos = 18 + xPercentage * usableWidth;
                             final yPos = 24 + (1 - yPercentage) * usableHeight;
+
+                            // mirror horizontally when RTL
+                            final isRtl = Directionality.of(context) == TextDirection.rtl;
+                            if (isRtl) {
+                              xPos = chartWidth - xPos;
+                            }
 
                             // Prevent overflow
                             final bubbleLeft = (xPos - 120).clamp(6.0, chartWidth - 140);
@@ -329,9 +342,10 @@ class StatsScreen extends StatelessWidget {
 
                             return Stack(
                               children: [
-                                // tip circle + connecting vertical dotted line (like image)
-                                Positioned(
-                                  left: xPos - 18,
+                                // tip circle
+                                PositionedDirectional(
+                                  start: isRtl ? null : (xPos - 18),
+                                  end: isRtl ? (xPos - 18) : null,
                                   top: yPos - 18,
                                   child: Column(
                                     children: [
@@ -355,17 +369,17 @@ class StatsScreen extends StatelessWidget {
                                   ),
                                 ),
 
-                                // tooltip bubble
-                                Positioned(
-                                  left: bubbleLeft,
+                                // tooltip bubble + value
+                                PositionedDirectional(
+                                  start: isRtl ? null : bubbleLeft,
+                                  end: isRtl ? bubbleLeft : null,
                                   top: bubbleTop,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      // bubble
                                       Container(
                                         constraints: const BoxConstraints(maxWidth: 220),
-                                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 14, vertical: 10),
                                         decoration: BoxDecoration(
                                           color: Colors.white.withOpacity(0.06),
                                           borderRadius: BorderRadius.circular(12),
@@ -379,14 +393,13 @@ class StatsScreen extends StatelessWidget {
                                           ],
                                         ),
                                         child: Text(
-                                          'Your spending decreased from 5% the last week.\nGood job!',
+                                          'stats_tooltip'.tr,
                                           style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12),
                                         ),
                                       ),
                                       const SizedBox(height: 10),
-                                      // value chip
                                       Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 8),
                                         decoration: BoxDecoration(
                                           color: Colors.black.withOpacity(0.45),
                                           borderRadius: BorderRadius.circular(8),

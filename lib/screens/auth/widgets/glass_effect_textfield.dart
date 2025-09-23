@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 /// Reusable glassmorphic text field
@@ -28,7 +27,7 @@ class GlassTextField extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
