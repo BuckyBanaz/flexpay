@@ -17,7 +17,7 @@ class FlexWallet extends StatelessWidget {
     return Obx(() {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flex Pay',
+        title: 'brand_name'.tr,
         theme: AppTheme.darkTheme,
         translations: TranslationService(), // GetX translations
         locale: localeCtrl.current.value,

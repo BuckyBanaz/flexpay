@@ -26,14 +26,14 @@ class WelcomeScreen extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Welcome to\n',
+                    text: 'welcome_to'.tr + '\n',
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 20.sp,
                     ),
                   ),
                   TextSpan(
-                    text: 'Flex Pay',
+                    text: 'brand_name'.tr,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 26.sp,
@@ -43,9 +43,9 @@ class WelcomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 1.h),
             Text(
-              'Unlock the full potential of financial power to\n connect your account.',
+              'welcome_subtitle'.tr,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.textSecondary,
@@ -82,10 +82,10 @@ class WelcomeScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                      Text("Already have an account?  ",style: TextStyle(
+                      Text('already_have_account'.tr + ' ',style: TextStyle(
                         color: AppColors.textSecondary
                       ),),
-                        Text("Log in",style: TextStyle(
+                        Text('login'.tr,style: TextStyle(
                             color: AppColors.primary,
                           fontWeight: FontWeight.bold
                         ),),
@@ -115,7 +115,7 @@ class WelcomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Get Started',
+                            'get_started'.tr,
                             style: TextStyle(
                              color: AppColors.textPrimary,
                               fontSize: 16.sp,
@@ -143,7 +143,7 @@ class WelcomeScreen extends StatelessWidget {
                       SizedBox(width: 1.w),
                       Flexible(
                         child: Text(
-                          'Bank-level security. Your data is safe with us.',
+                          'bank_security'.tr,
                           style: GoogleFonts.poppins(
                             color: Colors.white.withOpacity(0.65),
                             fontSize: 14.sp,

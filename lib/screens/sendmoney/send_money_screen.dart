@@ -33,7 +33,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.maybePop(context),
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white70),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           visualDensity: VisualDensity.compact,
           splashRadius: 20,
         ),

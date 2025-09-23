@@ -126,6 +126,11 @@
   "solid_steel_metal": "Solid Steel Metal",
   "material_color_label": "{0} • {1}",
   "material_description": "A striking shimmer effect makes our beautiful Premium card feel as good as it looks.",
-  "get_your_card": "Get Your Card"
+  "get_your_card": "Get Your Card",
+  "welcome_to": "Welcome to",
+  "welcome_subtitle": "Unlock the full potential of financial power to\nconnect your account.",
+  "login": "Log in",
+  "get_started": "Get Started",
+  "bank_security": "Bank-level security. Your data is safe with us."
 
 }
