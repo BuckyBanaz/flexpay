@@ -8,6 +8,7 @@ import 'package:iconly/iconly.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/app_colors.dart';
 import '../../utils/gradient_scaffold.dart';
+import '../auth/signup_sheet.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -69,17 +70,27 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    Text("Already have an account?  ",style: TextStyle(
-                      color: AppColors.textSecondary
-                    ),),
-                      Text("Log in",style: TextStyle(
-                          color: AppColors.primary,
-                        fontWeight: FontWeight.bold
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (ctx) => const SignUpSheet(), // open sign up by default
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      Text("Already have an account?  ",style: TextStyle(
+                        color: AppColors.textSecondary
                       ),),
-                    ],
+                        Text("Log in",style: TextStyle(
+                            color: AppColors.primary,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 2.h),
                   SizedBox(
