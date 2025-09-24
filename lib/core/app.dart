@@ -19,6 +19,7 @@ class FlexWallet extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'brand_name'.tr,
         theme: AppTheme.darkTheme,
+        darkTheme:  AppTheme.darkTheme,
         translations: TranslationService(), // GetX translations
         locale: localeCtrl.current.value,
         fallbackLocale: TranslationService.defaultFallback,

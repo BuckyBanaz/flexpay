@@ -33,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: 'brand_name'.tr,
+                    text: 'Flex Pay'.tr,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 26.sp,

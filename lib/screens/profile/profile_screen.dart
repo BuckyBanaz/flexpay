@@ -1,4 +1,5 @@
 // lib/screens/profile/profile_screen.dart
+import 'package:flex/routes/appRoutes.dart';
 import 'package:flex/screens/profile/widgets/glass_button.dart';
 import 'package:flex/screens/profile/widgets/profile_card.dart';
 import 'package:flex/screens/profile/widgets/setting_card.dart';
@@ -122,7 +123,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 icon: IconlyLight.setting,
                 title: 'app_preferences'.tr,
                 subtitle: 'theme_language'.tr,
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(AppRoutes.language);
+                },
               ),
               SettingsItem(
                 icon: Icons.help_outline,

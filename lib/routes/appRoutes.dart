@@ -4,6 +4,7 @@ import 'package:flex/screens/wallet/wallet_screen.dart';
 import 'package:get/get.dart';
 
 import '../screens/pay/pay_screen.dart';
+import '../screens/profile/settings/language_Screen.dart';
 import '../screens/recevie/receive_screen.dart';
 import '../screens/sendmoney/send_money_screen.dart';
 import '../screens/swap/swap_screen.dart';
@@ -20,6 +21,7 @@ class AppRoutes {
   static const swap = '/swap';
   static const pay = '/pay';
   static const receive = '/receive';
+  static const language = '/language';
 
   static get routes => [
     // GetPage(name: splash, page: () =>  SplashScreen()),
@@ -32,5 +34,6 @@ class AppRoutes {
     GetPage(name: swap, page: () => SwapScreen(),transition: Transition.rightToLeft),
     GetPage(name: pay, page: () => PayScreen(),transition: Transition.rightToLeft),
     GetPage(name: receive, page: () => ReceiveScreen(),transition: Transition.rightToLeft),
+    GetPage(name: language, page: () => LanguageScreen(),transition: Transition.rightToLeft),
   ];
 }

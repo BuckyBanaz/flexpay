@@ -131,6 +131,12 @@
   "welcome_subtitle": "Unlock the full potential of financial power to\nconnect your account.",
   "login": "Log in",
   "get_started": "Get Started",
-  "bank_security": "Bank-level security. Your data is safe with us."
+  "bank_security": "Bank-level security. Your data is safe with us.",
+  "language": "Language",
+  "choose_language": "Choose a language",
+  "language_screen_subtitle": "Select the language you prefer for the app interface.",
+  "language_changed": "Language changed to {0}",
+  "rtl_note": "This language uses right-to-left layout; the interface will mirror automatically.",
+  "done": "Done"
 
 }
