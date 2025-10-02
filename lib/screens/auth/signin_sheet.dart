@@ -48,7 +48,7 @@ class SignInSheet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('welcome_back'.tr,
-                        style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                         textAlign: TextAlign.start),
                     GestureDetector(onTap: () => Get.back(), child: const Icon(Icons.close)),
                   ],

@@ -97,7 +97,7 @@ class _WalletScreenState extends State<WalletScreen>
                       children: [
                         Text(
                           'cards'.tr,
-                          style: GoogleFonts.poppins(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.start,
@@ -116,7 +116,7 @@ class _WalletScreenState extends State<WalletScreen>
                     const SizedBox(width: 30),
                     Text(
                       'account'.tr,
-                      style: GoogleFonts.poppins(color: Colors.grey),
+                      style: TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -184,7 +184,7 @@ class _WalletScreenState extends State<WalletScreen>
                                 Expanded(
                                   child: Text(
                                     card["name"].toString(),
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.white,
                                     ),
@@ -274,7 +274,7 @@ class _WalletScreenState extends State<WalletScreen>
                           ),
                           child: Text(
                             'customization'.tr,
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                            style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
@@ -381,7 +381,7 @@ class _WalletScreenState extends State<WalletScreen>
                                   const SizedBox(width: 10),
                                   Text(
                                     '+ ' + 'add_card'.tr,
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       color: AppColors.primary,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
@@ -394,7 +394,7 @@ class _WalletScreenState extends State<WalletScreen>
                                     },
                                     child: Text(
                                       'cancel'.tr,
-                                      style: GoogleFonts.poppins(
+                                      style: TextStyle(
                                         color: AppColors.primary,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
@@ -408,7 +408,7 @@ class _WalletScreenState extends State<WalletScreen>
 
                               Text(
                                 'add_card_subtitle'.tr,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: Colors.white.withOpacity(0.7),
                                   fontSize: 13,
                                 ),
@@ -419,7 +419,7 @@ class _WalletScreenState extends State<WalletScreen>
                               // Card number field label
                               Text(
                                 'card_number'.tr,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: Colors.white.withOpacity(0.75),
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
@@ -436,7 +436,7 @@ class _WalletScreenState extends State<WalletScreen>
                               // Card holder name label
                               Text(
                                 'card_holder_name'.tr,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: Colors.white.withOpacity(0.75),
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
@@ -465,7 +465,7 @@ class _WalletScreenState extends State<WalletScreen>
                                   ),
                                   child: Text(
                                     'add_card'.tr,
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
                                     ),

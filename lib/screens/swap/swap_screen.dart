@@ -154,7 +154,7 @@ class SwapScreen extends StatelessWidget {
                         // example: "Swap {0} {1}" where {0} = youSendText, {1} = from currency
                         return Text(
                           'swap_action'.trArgs([c.youSendText.value, c.from]),
-                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                         );
                       }),
                     ],

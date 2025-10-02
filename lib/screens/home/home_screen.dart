@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             'welcome'.tr,
-                            style: GoogleFonts.poppins(
+                            style: TextStyle(
                               color: AppColors.textSecondary,
                               fontSize: 11,
                             ),
@@ -48,8 +48,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Text(
                             // If you have user's name in controller, replace with controller.userName
-                            'Sandy Chungus',
-                            style: GoogleFonts.poppins(
+                            'user_name'.tr,
+                            style: TextStyle(
                               color: AppColors.textPrimary,
                               fontWeight: FontWeight.w700,
                               fontSize: 15,
@@ -121,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                                 builder: (context, val, _) {
                                   return Text(
                                     '\$${val.toStringAsFixed(2)}',
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       color: AppColors.textPrimary,
                                       fontSize: 30,
                                       fontWeight: FontWeight.w800,
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(height: 16),
                               Text(
                                 'available_balance'.tr,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: AppColors.textSecondary,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
@@ -173,7 +173,7 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         'my_transactions'.tr,
-                                        style: GoogleFonts.poppins(
+                                        style: TextStyle(
                                           color: AppColors.textPrimary,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
@@ -288,7 +288,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         tx.title,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                           color: AppColors.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
@@ -297,7 +297,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         tx.date,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 12,
                         ),
@@ -309,7 +309,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   (tx.amount < 0 ? '-' : '+') + '\$${tx.amount.abs().toStringAsFixed(2)}',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     color: tx.amount < 0 ? AppColors.textSecondary : AppColors.success,
                   ),
                   textAlign: TextAlign.end,

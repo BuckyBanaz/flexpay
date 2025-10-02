@@ -67,7 +67,7 @@ class GlassButton extends StatelessWidget {
                   ],
                   Text(
                     label,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       color: accent,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

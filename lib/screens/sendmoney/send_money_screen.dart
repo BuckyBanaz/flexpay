@@ -39,7 +39,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
         ),
         title: Text(
           'send_money_title'.tr,
-          style: GoogleFonts.poppins(
+          style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
             fontSize: 18,
@@ -64,12 +64,12 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                 children: [
                   Text(
                     'amount_label'.trArgs(['SR']),
-                    style: GoogleFonts.poppins(color: Colors.white60, fontSize: 13),
+                    style: TextStyle(color: Colors.white60, fontSize: 13),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     '\$500.4', // dynamic: replace with controller value when available
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 34,
                       fontWeight: FontWeight.w800,
@@ -90,7 +90,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
             const SizedBox(height: 18),
 
             // Recent label + avatars
-            Text('recent'.tr, style: GoogleFonts.poppins(color: Colors.white70, fontWeight: FontWeight.w600)),
+            Text('recent'.tr, style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             SizedBox(
               height: 100,
@@ -132,7 +132,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                       const SizedBox(height: 6),
                       Text(
                         displayName,
-                        style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12),
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
                       )
                     ],
                   );
@@ -142,7 +142,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
 
             const SizedBox(height: 18),
 
-            Text('from_label'.tr, style: GoogleFonts.poppins(color: Colors.white70, fontWeight: FontWeight.w600)),
+            Text('from_label'.tr, style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
 
             // Cards list
@@ -160,7 +160,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                         end: Alignment.bottomRight,
                       ),
                       cardNumber: '5000 0000 0000 0000',
-                      holderName: 'Sandy Chungus',
+                      holderName: "user_name".tr,
                       balance: 12450.00,
                     ),
                   ),
@@ -175,7 +175,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                         end: Alignment.bottomRight,
                       ),
                       cardNumber: '5000 0000 0000 0000',
-                      holderName: 'Sandy Chungus',
+                      holderName: "user_name".tr,
                       balance: 8320.50,
                     ),
                   ),
@@ -203,7 +203,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
               children: [
                 Icon(Icons.send_rounded, color: Colors.white),
                 const SizedBox(width: 12),
-                Text('send_action_label'.trArgs(['\$500.4']), style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700)),
+                Text('send_action_label'.trArgs(['\$500.4']), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
               ],
             ),
           ),

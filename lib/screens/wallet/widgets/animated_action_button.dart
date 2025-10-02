@@ -79,7 +79,7 @@ class _AnimatedActionButtonState extends State<AnimatedActionButton> {
           const SizedBox(height: 6),
           Text(
             widget.label,
-            style: GoogleFonts.poppins(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ],
       ),

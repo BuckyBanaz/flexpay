@@ -36,7 +36,7 @@ class CardCustomizationScreen extends StatelessWidget {
                         const SizedBox(width: 6),
                         Text(
                           'customisable'.tr,
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
+                          style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                       ],
                     ),
@@ -81,14 +81,14 @@ class CardCustomizationScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('brand_name'.tr,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 )),
                             const Spacer(),
                             Text('card_holder_name'.tr,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                 )),
@@ -131,7 +131,7 @@ class CardCustomizationScreen extends StatelessWidget {
                         border: Border.all(color: Colors.cyan, width: 1.4),
                       ),
                       child: Center(
-                        child: Text('premium_plastic'.tr, style: GoogleFonts.poppins(color: Colors.white, fontSize: 13)),
+                        child: Text('premium_plastic'.tr, style: TextStyle(color: Colors.white, fontSize: 13)),
                       ),
                     ),
                   ),
@@ -146,7 +146,7 @@ class CardCustomizationScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('solid_steel_metal'.tr, style: GoogleFonts.poppins(color: Colors.white54, fontSize: 13)),
+                          Text('solid_steel_metal'.tr, style: TextStyle(color: Colors.white54, fontSize: 13)),
                           const SizedBox(width: 6),
                           const Icon(CupertinoIcons.lock_fill, size: 14, color: Colors.white54),
                         ],
@@ -163,12 +163,12 @@ class CardCustomizationScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text('material_color_label'.trArgs(['Premium Plastic', 'Space Grey']),
-                        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15)),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15)),
                     const SizedBox(height: 8),
                     Text(
                       'material_description'.tr,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12),
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
                     ),
                   ],
                 ),
@@ -199,7 +199,7 @@ class CardCustomizationScreen extends StatelessWidget {
                     padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
-                  child: Text('get_your_card'.tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 15)),
+                  child: Text('get_your_card'.tr, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
                 ),
               ),
             ],

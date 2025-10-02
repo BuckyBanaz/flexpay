@@ -69,7 +69,7 @@ class StatsScreen extends StatelessWidget {
                             ),
                             child: Text(
                               labels[i],
-                              style: GoogleFonts.poppins(
+                              style: TextStyle(
                                 color: selected ? Colors.black : Colors.white70,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 13,
@@ -91,7 +91,7 @@ class StatsScreen extends StatelessWidget {
                 children: [
                   Text(
                     'total_spendings'.tr,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       color: Colors.white70,
                       fontSize: 13,
                     ),
@@ -101,7 +101,7 @@ class StatsScreen extends StatelessWidget {
                   // You can replace the hard-coded value with a reactive value from controller
                   Text(
                     'total_spendings_value'.tr,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
@@ -126,7 +126,7 @@ class StatsScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Text('income'.tr,
-                                  style: GoogleFonts.poppins(
+                                  style: TextStyle(
                                       color: io == 0 ? Colors.white : Colors.white70)),
                               const SizedBox(height: 8),
                               Container(height: 4),
@@ -140,7 +140,7 @@ class StatsScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Text('outcome'.tr,
-                                  style: GoogleFonts.poppins(
+                                  style: TextStyle(
                                       color: io == 1 ? Colors.white : Colors.white70)),
                               const SizedBox(height: 8),
                               AnimatedContainer(
@@ -189,7 +189,7 @@ class StatsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('overview'.tr,
-                                  style: GoogleFonts.poppins(
+                                  style: TextStyle(
                                       color: Colors.white70, fontWeight: FontWeight.w600)),
                               const SizedBox(height: 8),
                               // Chart container
@@ -235,7 +235,7 @@ class StatsScreen extends StatelessWidget {
                                               ];
                                               int idx = value.toInt();
                                               if (idx >= 0 && idx < labels.length) {
-                                                return Text(labels[idx], style: GoogleFonts.poppins(color: Colors.white54, fontSize: 11));
+                                                return Text(labels[idx], style: TextStyle(color: Colors.white54, fontSize: 11));
                                               }
                                               return const SizedBox.shrink();
                                             }),
@@ -394,7 +394,7 @@ class StatsScreen extends StatelessWidget {
                                         ),
                                         child: Text(
                                           'stats_tooltip'.tr,
-                                          style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12),
+                                          style: TextStyle(color: Colors.white70, fontSize: 12),
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -406,7 +406,7 @@ class StatsScreen extends StatelessWidget {
                                         ),
                                         child: Text(
                                           '\$${spots[idx].y.toInt()}',
-                                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w700),
+                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                                         ),
                                       ),
                                     ],

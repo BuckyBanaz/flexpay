@@ -3,11 +3,9 @@ import 'package:flex/routes/appRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sizer/sizer.dart';
 import '../../constant/app_colors.dart';
-import '../../utils/gradient_scaffold.dart';
 import '../auth/signup_sheet.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -15,6 +13,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -33,7 +32,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: 'Flex Pay'.tr,
+                    text: 'brand_name'.tr,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 26.sp,
@@ -58,9 +57,16 @@ class WelcomeScreen extends StatelessWidget {
               width: 100.w,
               height: 50.h,
               decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage(AppAssets.welcome),)
+                image: DecorationImage(
+                  image: AssetImage(
+                    (Get.locale?.languageCode == 'ar')
+                        ? AppAssets.welcome_ar   // Arabic
+                        : AppAssets.welcome,     // Default English
+                  ),
+                ),
               ),
             ),
+
             Spacer(),
             // Bottom fixed block: CTA + security text
             Padding(
@@ -106,7 +112,7 @@ class WelcomeScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        textStyle: GoogleFonts.poppins(
+                        textStyle: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 20.sp,
                         ),
@@ -144,7 +150,7 @@ class WelcomeScreen extends StatelessWidget {
                       Flexible(
                         child: Text(
                           'bank_security'.tr,
-                          style: GoogleFonts.poppins(
+                          style: TextStyle(
                             color: Colors.white.withOpacity(0.65),
                             fontSize: 14.sp,
                           ),

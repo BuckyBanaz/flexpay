@@ -19,6 +19,9 @@ class SwapController extends GetxController {
   // currency list (could be fetched)
   final List<String> currencies = ['USD', 'EUR', 'BTC', 'ETH'];
 
+  // convenience: map code -> translation key
+  String currencyKey(String code) => 'currency_$code';
+
   // getters for convenience
   String get from => _from.value;
   String get to => _to.value;
@@ -76,7 +79,6 @@ class SwapController extends GetxController {
       Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-
           borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           border: Border.all(color: Colors.white.withOpacity(0.03)),
         ),
@@ -86,14 +88,12 @@ class SwapController extends GetxController {
             final selected = (isFrom ? from : to) == c;
             return ListTile(
               leading: Text(emojiFor(c), style: const TextStyle(fontSize: 22)),
-              title: Text(c, style: const TextStyle(fontWeight: FontWeight.w600)),
+              // use localized currency name:
+              title: Text(currencyKey(c).tr, style: const TextStyle(fontWeight: FontWeight.w600)),
               trailing: selected ? const Icon(Icons.check, color: Colors.teal) : null,
               onTap: () {
-                if (isFrom) {
-                  setFrom(c);
-                } else {
-                  setTo(c);
-                }
+                if (isFrom) setFrom(c);
+                else setTo(c);
                 Get.back();
               },
             );
@@ -129,8 +129,15 @@ class SwapController extends GetxController {
 
   void onSwapPressed() {
     final fromAmt = youSendCtrl.text;
-    Get.snackbar('Swap', 'Swapping $fromAmt ${_from.value} -> ${_to.value}',
-        snackPosition: SnackPosition.BOTTOM);
+    // use trArgs to pass amount, from and to (localized currency names)
+    final fromName = currencyKey(_from.value).tr;
+    final toName = currencyKey(_to.value).tr;
+
+    Get.snackbar(
+      'swap'.tr,
+      'swapping'.trArgs([fromAmt, fromName, toName]),
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   // dispose controllers

@@ -49,7 +49,7 @@ class SignUpSheet extends StatelessWidget {
                   children: [
                     Text(
                       'create_account'.tr,
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),

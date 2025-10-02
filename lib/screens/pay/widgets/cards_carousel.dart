@@ -70,7 +70,7 @@ class CardsCarousel extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Center(
-                            child: Text('VISA', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w800)),
+                            child: Text('VISA', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                           ),
                         ),
                       ],

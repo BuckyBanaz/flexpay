@@ -137,6 +137,32 @@
   "language_screen_subtitle": "Select the language you prefer for the app interface.",
   "language_changed": "Language changed to {0}",
   "rtl_note": "This language uses right-to-left layout; the interface will mirror automatically.",
-  "done": "Done"
+  "done": "Done",
+  "please_enter_email": "Please enter email",
+  "enter_valid_email": "Enter a valid email",
+  "please_enter_password": "Please enter password",
+  "minimum_password_length": "Password must be at least 6 characters",
+  "signed_in": "Signed In",
+  "welcome_back2": "Welcome back!",
+  "account_created": "Account Created",
+  "welcome_flexpay": "Welcome to Flex Pay!",
+
+  "amazon": "Amazon",
+  "mcdonalds": "McDonalds",
+  "sarah_johnson": "Sarah Johnson",
+  "salary_deposit": "Salary Deposit",
+  "netflix": "Netflix",
+  "visa_card": "VISA",
+
+
+  "swapping": "Swapping %s %s → %s",
+  "currency_USD": "US Dollar",
+  "currency_EUR": "Euro",
+  "currency_BTC": "Bitcoin",
+  "currency_ETH": "Ethereum",
+
+  "you_send_hint": "You send",
+  "you_get_hint": "You get",
+  "select_currency": "Select currency"
 
 }

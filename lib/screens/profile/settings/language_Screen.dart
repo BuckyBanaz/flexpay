@@ -147,7 +147,7 @@ class LanguageScreen extends StatelessWidget {
                     padding: const EdgeInsetsDirectional.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
-                  child: Text('done'.tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 15)),
+                  child: Text('done'.tr, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
                 ),
               ),
             ],

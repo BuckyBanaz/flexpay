@@ -20,11 +20,12 @@ class MainNavScreen extends StatefulWidget {
 class _MainNavScreenState extends State<MainNavScreen>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
+  DateTime? _lastPressed;
 
   final List<Widget> _pages = [
     const HomeScreen(),
     WalletScreen(),
-     ProfileScreen(),
+    ProfileScreen(),
     StatsScreen(),
   ];
 
@@ -34,27 +35,56 @@ class _MainNavScreenState extends State<MainNavScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Gradient background similar to your AppColors
-      body: Container(
+    return PopScope(
+      canPop: _selectedIndex == 0,
+      onPopInvoked: (didPop) {
+        if (didPop) return;
 
-        child: SafeArea(
-          bottom: false,
-          child: Stack(
-            children: [
-              // preserve pages with IndexedStack
-              IndexedStack(index: _selectedIndex, children: _pages),
-              // Positioned Bottom navigation
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: GlassBottomNav(
-                  selectedIndex: _selectedIndex,
-                  onTap: _onTap,
-                ),
+        // If the user is on a different tab, go back to home
+        if (_selectedIndex != 0) {
+          _onTap(0);
+        } else {
+          // If the user is already on the home screen
+          final now = DateTime.now();
+          final backPressGap = now.difference(_lastPressed ?? now);
+          _lastPressed = now;
+
+          // If the time between presses is less than 2 seconds, exit the app
+          if (backPressGap <= const Duration(seconds: 2)) {
+            // This will close the app
+            Navigator.of(context).pop();
+          } else {
+            // Show a toast message
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Press back again to exit'),
+                duration: Duration(seconds: 2),
               ),
-            ],
+            );
+          }
+        }
+      },
+      child: Scaffold(
+        // Gradient background similar to your AppColors
+        body: Container(
+          child: SafeArea(
+            bottom: false,
+            child: Stack(
+              children: [
+                // preserve pages with IndexedStack
+                IndexedStack(index: _selectedIndex, children: _pages),
+                // Positioned Bottom navigation
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: GlassBottomNav(
+                    selectedIndex: _selectedIndex,
+                    onTap: _onTap,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

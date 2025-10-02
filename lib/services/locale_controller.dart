@@ -18,6 +18,7 @@ class LocaleController extends GetxService {
     return this;
   }
 
+  // lib/services/locale_controller.dart
   Future<void> applySavedLocale() async {
     final prefs = await SharedPreferences.getInstance();
     final saved = prefs.getString(_languageKey);
@@ -26,10 +27,11 @@ class LocaleController extends GetxService {
       current.value = loc;
       Get.updateLocale(loc);
     } else {
-      current.value = TranslationService.defaultLocale;
+      current.value = TranslationService.defaultLocale; // Arabic by default
       Get.updateLocale(TranslationService.defaultLocale);
     }
   }
+
 
   /// Save language code (use 'en_US' or 'ar_SA')
   Future<void> saveAndChange(String code) async {

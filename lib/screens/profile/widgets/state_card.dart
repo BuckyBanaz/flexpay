@@ -53,7 +53,7 @@ class StatCard extends StatelessWidget {
               const SizedBox(height: 14),
               Text(
                 amount,
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -63,7 +63,7 @@ class StatCard extends StatelessWidget {
               Text(
                 label,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   color: Colors.white.withOpacity(0.7),
                   fontSize: 12,
                   fontWeight: FontWeight.w400,

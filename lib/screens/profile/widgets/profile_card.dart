@@ -102,7 +102,7 @@ class ProfileCard extends StatelessWidget {
               // Name (use reactive user name later if available)
               Text(
                 'user_name'.tr,
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textPrimary,
@@ -115,7 +115,7 @@ class ProfileCard extends StatelessWidget {
               // Premium Member
               Text(
                 'premium_member'.tr,
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primary,
@@ -128,7 +128,7 @@ class ProfileCard extends StatelessWidget {
               // Member since (use trArgs to inject year)
               Text(
                 'member_since'.trArgs(['2023']),
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   fontSize: 12,
                   color: Colors.white70,
                 ),
@@ -154,7 +154,7 @@ class ProfileCard extends StatelessWidget {
                 icon: const Icon(Icons.edit, color: Colors.white, size: 16),
                 label: Text(
                   'edit_profile'.tr,
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

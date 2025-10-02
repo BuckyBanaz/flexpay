@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constant/app_assets.dart';
@@ -97,7 +98,7 @@ class PaymentCard extends StatelessWidget {
                 // card number
                 Text(
                   cardNumber,
-                  style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.95), fontSize: 16, letterSpacing: 2, fontWeight: FontWeight.w700),
+                  style: TextStyle(color: Colors.white.withOpacity(0.95), fontSize: 16, letterSpacing: 2, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 8),
                 // bottom row: holder name, balance and visa
@@ -106,9 +107,9 @@ class PaymentCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(holderName, style: GoogleFonts.poppins(color: Colors.white70, fontSize: 12)),
+                        Text(holderName, style: TextStyle(color: Colors.white70, fontSize: 12)),
                         const SizedBox(height: 6),
-                        Text('\$${balance.toStringAsFixed(2)}', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w800)),
+                        Text('\$${balance.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                       ],
                     ),
                     const Spacer(),
@@ -122,7 +123,7 @@ class PaymentCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
-                        child: Text('VISA', style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w800)),
+                        child: Text('visa_card'.tr, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
                       ),
                     ),
                   ],
